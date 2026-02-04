@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIZEN QUEST BOARD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           RESET & GLOBAL STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background-color: #0d0221;
+            color: #00f3ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* CRT Scan-line Effect Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15) 0px,
+                rgba(0, 0, 0, 0.15) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ========================================
+           CONTAINER & LAYOUT
+           ======================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========================================
+           HEADER & TITLE
+           ======================================== */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff007f, #00f3ff, #ff007f);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Glitch Effect on Title Hover */
+        .title:hover {
+            animation: glitch 0.5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(255, 0, 127, 0.5),
+                            3px 0 0 rgba(255, 0, 127, 0.8),
+                            -3px 0 0 rgba(0, 243, 255, 0.8);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(0, 243, 255, 0.5),
+                            -3px 0 0 rgba(255, 0, 127, 0.8),
+                            3px 0 0 rgba(0, 243, 255, 0.8);
+            }
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #ff007f;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        /* ========================================
+           QUEST ENTRY SECTION
+           ======================================== */
+        .quest-entry {
+            background-color: rgba(13, 2, 33, 0.8);
+            border: 2px solid #00f3ff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6),
+                        inset 0 0 10px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .form-group {
+                flex-direction: row;
+                align-items: flex-end;
+                gap: 15px;
+            }
+        }
+
+        .input-field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: #ff007f;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        input[type="text"],
+        select {
+            padding: 12px 16px;
+            border: 2px solid #ff007f;
+            background-color: rgba(0, 243, 255, 0.05);
+            color: #00f3ff;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6),
+                        inset 0 0 10px rgba(0, 243, 255, 0.1);
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(0, 243, 255, 0.5);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background-color: #0d0221;
+            color: #00f3ff;
+        }
+
+        /* ========================================
+           BUTTONS
+           ======================================== */
+        button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-add-quest {
+            background-color: #ff007f;
+            color: #0d0221;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+        }
+
+        .btn-add-quest:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.9),
+                        0 0 60px rgba(255, 0, 127, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-add-quest:active {
+            transform: translateY(0);
+        }
+
+        .btn-complete {
+            background-color: #00f3ff;
+            color: #0d0221;
+            border: 1px solid #00f3ff;
+            font-size: 0.8rem;
+            padding: 8px 16px;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-complete:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8),
+                        0 0 50px rgba(0, 243, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           QUEST BOARD & CARDS
+           ======================================== */
+        .quest-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .quest-board {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        .quest-card {
+            background-color: rgba(13, 2, 33, 0.9);
+            border: 2px solid;
+            border-radius: 8px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Rank-based Colors */
+        .quest-card.s-rank {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6),
+                        inset 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+
+        .quest-card.a-rank {
+            border-color: #ff007f;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6),
+                        inset 0 0 10px rgba(255, 0, 127, 0.1);
+        }
+
+        .quest-card.b-rank {
+            border-color: #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6),
+                        inset 0 0 10px rgba(0, 243, 255, 0.1);
+        }
+
+        .quest-card.c-rank {
+            border-color: #cccccc;
+            box-shadow: 0 0 15px rgba(204, 204, 204, 0.4),
+                        inset 0 0 8px rgba(204, 204, 204, 0.1);
+        }
+
+        .quest-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quest-card.flicker-out {
+            animation: flickerOut 0.5s ease-out forwards;
+        }
+
+        @keyframes flickerOut {
+            0%, 90% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        .rank-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+            border: 1px solid;
+        }
+
+        .rank-badge.s-rank {
+            background-color: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .rank-badge.a-rank {
+            background-color: rgba(255, 0, 127, 0.2);
+            color: #ff007f;
+            border-color: #ff007f;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+
+        .rank-badge.b-rank {
+            background-color: rgba(0, 243, 255, 0.2);
+            color: #00f3ff;
+            border-color: #00f3ff;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .rank-badge.c-rank {
+            background-color: rgba(204, 204, 204, 0.1);
+            color: #cccccc;
+            border-color: #cccccc;
+        }
+
+        .quest-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .quest-card.s-rank .quest-name {
+            color: #ffd700;
+        }
+
+        .quest-card.a-rank .quest-name {
+            color: #ff007f;
+        }
+
+        .quest-card.b-rank .quest-name {
+            color: #00f3ff;
+        }
+
+        .quest-card.c-rank .quest-name {
+            color: #cccccc;
+        }
+
+        .quest-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid;
+        }
+
+        .quest-card.s-rank .quest-footer {
+            border-top-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .quest-card.a-rank .quest-footer {
+            border-top-color: rgba(255, 0, 127, 0.3);
+        }
+
+        .quest-card.b-rank .quest-footer {
+            border-top-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .quest-card.c-rank .quest-footer {
+            border-top-color: rgba(204, 204, 204, 0.2);
+        }
+
+        /* ========================================
+           EMPTY STATE
+           ======================================== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #ff007f;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .empty-state::before {
+            content: '[ NO ACTIVE QUESTS ]';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .quest-entry {
+                padding: 20px;
+            }
+
+            .quest-board {
+                grid-template-columns: 1fr;
+            }
+
+            .quest-card {
+                padding: 20px;
+            }
+
+            .form-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="title">kaIZEN QUEST BOARD</h1>
+            <p class="subtitle">Level Up Your Daily Tasks</p>
+        </header>
+
+        <!-- Quest Entry Section -->
+        <section class="quest-entry">
+            <form id="questForm">
+                <div class="form-group">
+                    <div class="input-field" style="flex: 2;">
+                        <label for="questInput">Quest Name</label>
+                        <input 
+                            type="text" 
+                            id="questInput" 
+                            placeholder="Enter your quest..."
+                            required
+                        >
+                    </div>
+                    <div class="input-field">
+                        <label for="rankSelect">Rank</label>
+                        <select id="rankSelect" required>
+                            <option value="s-rank">S-Rank</option>
+                            <option value="a-rank">A-Rank</option>
+                            <option value="b-rank">B-Rank</option>
+                            <option value="c-rank">C-Rank</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-add-quest">Add Quest</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Quest Board -->
+        <section id="questBoard" class="quest-board">
+            <!-- Quests will be dynamically inserted here -->
+        </section>
+    </div>
+
+    <script>
+        /* ========================================
+           QUEST MANAGER - KAIZEN QUEST BOARD
+           ======================================== */
+
+        class QuestManager {
+            constructor() {
+                this.quests = [];
+                this.storageKey = 'kaizen_quests';
+                this.questForm = document.getElementById('questForm');
+                this.questInput = document.getElementById('questInput');
+                this.rankSelect = document.getElementById('rankSelect');
+                this.questBoard = document.getElementById('questBoard');
+
+                this.init();
+            }
+
+            // Initialize the application
+            init() {
+                this.loadQuests();
+                this.attachEventListeners();
+                this.render();
+            }
+
+            // Load quests from localStorage
+            loadQuests() {
+                const stored = localStorage.getItem(this.storageKey);
+                this.quests = stored ? JSON.parse(stored) : [];
+            }
+
+            // Save quests to localStorage
+            saveQuests() {
+                localStorage.setItem(this.storageKey, JSON.stringify(this.quests));
+            }
+
+            // Attach event listeners
+            attachEventListeners() {
+                this.questForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addQuest();
+                });
+            }
+
+            // Add a new quest
+            addQuest() {
+                const questName = this.questInput.value.trim();
+                const rank = this.rankSelect.value;
+
+                if (!questName) {
+                    alert('Please enter a quest name!');
+                    return;
+                }
+
+                const quest = {
+                    id: Date.now(),
+                    name: questName,
+                    rank: rank,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.quests.unshift(quest);
+                this.saveQuests();
+                this.questInput.value = '';
+                this.rankSelect.value = 's-rank';
+                this.render();
+                this.questInput.focus();
+            }
+
+            // Complete a quest (with animation)
+            completeQuest(questId) {
+                const questCard = document.querySelector(
+                    `[data-quest-id="${questId}"]`
+                );
+
+                if (questCard) {
+                    questCard.classList.add('flicker-out');
+                    setTimeout(() => {
+                        this.quests = this.quests.filter(q => q.id !== questId);
+                        this.saveQuests();
+                        this.render();
+                    }, 500);
+                }
+            }
+
+            // Render the quest board
+            render() {
+                this.questBoard.innerHTML = '';
+
+                if (this.quests.length === 0) {
+                    this.questBoard.innerHTML = `
+                        <div class="empty-state">
+                            Begin your journey by adding a new quest...
+                        </div>
+                    `;
+                    return;
+                }
+
+                this.quests.forEach(quest => {
+                    const questCard = document.createElement('div');
+                    questCard.className = `quest-card ${quest.rank}`;
+                    questCard.setAttribute('data-quest-id', quest.id);
+
+                    questCard.innerHTML = `
+                        <div class="rank-badge ${quest.rank}">
+                            ${quest.rank.replace('-', ' ').toUpperCase()}
+                        </div>
+                        <h3 class="quest-name">${this.escapeHtml(quest.name)}</h3>
+                        <div class="quest-footer">
+                            <button 
+                                class="btn-complete" 
+                                onclick="questManager.completeQuest(${quest.id})"
+                            >
+                                Complete Quest
+                            </button>
+                        </div>
+                    `;
+
+                    this.questBoard.appendChild(questCard);
+                });
+            }
+
+            // Escape HTML to prevent XSS
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize the quest manager when the DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.questManager = new QuestManager();
+        });
+    </script>
+</body>
+</html>
