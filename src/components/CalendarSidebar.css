@@ -1,0 +1,279 @@
+/* ============================================
+   CalendarSidebar — Mini calendar + categories
+   ============================================ */
+
+.calendar-sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    background: var(--gc-surface);
+    border-right: 1px solid var(--gc-border);
+    padding: 16px;
+    overflow-y: auto;
+    transition: margin-left var(--transition-slow), opacity var(--transition-slow);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.calendar-sidebar.collapsed {
+    margin-left: calc(-1 * var(--sidebar-width));
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Create Button (FAB-style) */
+.create-task-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: var(--gc-surface);
+    border: 1px solid var(--gc-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-1);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gc-text-primary);
+    transition: all var(--transition-normal);
+    width: fit-content;
+}
+
+.create-task-btn:hover {
+    box-shadow: var(--shadow-2);
+    background: var(--gc-blue-light);
+}
+
+.create-task-btn .material-symbols-outlined {
+    font-size: 28px;
+    color: var(--gc-blue);
+}
+
+/* Smart Decompose Button */
+.smart-decompose-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--gc-blue-light), var(--gc-blue-bg));
+    border: 1px solid var(--gc-blue);
+    border-radius: var(--radius-xl);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gc-blue);
+    transition: all var(--transition-normal);
+    width: fit-content;
+}
+
+.smart-decompose-trigger:hover {
+    box-shadow: var(--shadow-2);
+    background: var(--gc-blue);
+    color: var(--gc-text-on-primary);
+}
+
+.smart-decompose-trigger .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* ---- Mini Calendar ---- */
+.mini-calendar {
+    user-select: none;
+}
+
+.mini-cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.mini-cal-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gc-text-primary);
+}
+
+.mini-cal-nav {
+    display: flex;
+    gap: 4px;
+}
+
+.mini-cal-nav button {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gc-text-secondary);
+    transition: background var(--transition-fast);
+}
+
+.mini-cal-nav button:hover {
+    background: var(--gc-hover);
+}
+
+.mini-cal-nav .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.mini-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+    text-align: center;
+}
+
+.mini-cal-dow {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gc-text-tertiary);
+    padding: 4px 0;
+}
+
+.mini-cal-day {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    margin: 0 auto;
+    color: var(--gc-text-primary);
+}
+
+.mini-cal-day:hover {
+    background: var(--gc-hover);
+}
+
+.mini-cal-day.other-month {
+    color: var(--gc-text-tertiary);
+}
+
+.mini-cal-day.today {
+    background: var(--gc-blue);
+    color: white;
+    font-weight: 600;
+}
+
+.mini-cal-day.selected {
+    background: var(--gc-blue-light);
+    color: var(--gc-blue);
+    font-weight: 600;
+}
+
+.mini-cal-day.today.selected {
+    background: var(--gc-blue);
+    color: white;
+}
+
+/* ---- Task Categories ---- */
+.sidebar-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--gc-text-tertiary);
+    margin-bottom: 8px;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    font-size: 13px;
+    color: var(--gc-text-primary);
+}
+
+.category-item:hover {
+    background: var(--gc-hover);
+}
+
+.category-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.category-check {
+    font-size: 14px !important;
+    color: white;
+    font-weight: 700;
+}
+
+.category-item.inactive {
+    opacity: 0.5;
+}
+
+.category-item.inactive:hover {
+    opacity: 0.75;
+}
+
+.category-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--gc-text-tertiary);
+    min-width: 20px;
+    text-align: right;
+}
+
+.category-label {
+    cursor: pointer;
+    flex: 1;
+}
+
+/* Category action buttons — show on hover */
+.category-actions {
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    margin-left: 4px;
+}
+
+.category-item:hover .category-actions {
+    opacity: 1;
+}
+
+.category-action-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gc-text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.category-action-btn .material-symbols-outlined {
+    font-size: 16px;
+}
+
+.category-action-btn:hover {
+    background: var(--gc-blue-light);
+    color: var(--gc-blue);
+}
+
+.category-action-btn.delete:hover {
+    background: rgba(217, 48, 37, 0.1);
+    color: #d93025;
+}

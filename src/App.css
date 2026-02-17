@@ -1,0 +1,23 @@
+/* ============================================
+   App Layout — Google Calendar grid structure
+   ============================================ */
+
+.app {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: var(--header-height) 1fr;
+    grid-template-columns: auto 1fr;
+    overflow: hidden;
+}
+
+/* Header spans full width */
+.app>header {
+    grid-column: 1 / -1;
+}
+
+/* Content area (sidebar + grid) */
+.app-body {
+    display: flex;
+    overflow: hidden;
+    grid-column: 1 / -1;
+}

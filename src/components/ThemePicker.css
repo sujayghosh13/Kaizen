@@ -1,0 +1,162 @@
+/* ============================================
+   ThemePicker — Dropdown with theme previews
+   ============================================ */
+
+.theme-picker-wrapper {
+    position: relative;
+}
+
+.theme-picker-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gc-text-secondary);
+    transition: all var(--transition-fast);
+    margin-left: 4px;
+}
+
+.theme-picker-btn:hover {
+    background: var(--gc-hover);
+    color: var(--gc-text-primary);
+}
+
+.theme-picker-btn .material-symbols-outlined {
+    font-size: 22px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-picker-btn:hover .material-symbols-outlined {
+    transform: rotate(30deg);
+}
+
+/* Dropdown menu */
+.theme-picker-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    max-height: 440px;
+    overflow-y: auto;
+    background: var(--gc-surface);
+    border: 1px solid var(--gc-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-3);
+    z-index: 500;
+    padding: 8px;
+    animation: themeDropIn 0.2s ease-out;
+}
+
+@keyframes themeDropIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.theme-picker-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--gc-text-tertiary);
+    padding: 6px 8px 8px;
+}
+
+/* Individual theme option */
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    width: 100%;
+    text-align: left;
+}
+
+.theme-option:hover {
+    background: var(--gc-hover);
+}
+
+.theme-option.active {
+    background: var(--gc-blue-light);
+}
+
+/* Color swatch preview */
+.theme-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    /* Use a fixed dark+light ring so thumbnails always contrast well regardless of active theme */
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.theme-swatch-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.theme-swatch-half {
+    width: 50%;
+    height: 100%;
+}
+
+/* Theme label + description */
+.theme-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.theme-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gc-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.theme-desc {
+    font-size: 11px;
+    color: var(--gc-text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Active check icon */
+.theme-check {
+    margin-left: auto;
+    color: var(--gc-blue);
+    flex-shrink: 0;
+}
+
+.theme-check .material-symbols-outlined {
+    font-size: 18px;
+}
+
+/* Backdrop for closing */
+.theme-picker-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 499;
+}

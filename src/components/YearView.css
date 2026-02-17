@@ -1,0 +1,125 @@
+/* ============================================
+   YearView — 12-month grid overview
+   ============================================ */
+
+.year-view {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 32px;
+    background: var(--gc-surface);
+}
+
+.year-view-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gc-text-primary);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.year-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Individual month card */
+.year-month-card {
+    background: var(--gc-surface);
+    border: 1px solid var(--gc-border-light);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    transition: box-shadow var(--transition-fast);
+    cursor: pointer;
+}
+
+.year-month-card:hover {
+    box-shadow: var(--shadow-1);
+}
+
+.year-month-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gc-text-primary);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.year-month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    text-align: center;
+}
+
+.year-dow {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gc-text-tertiary);
+    padding: 2px 0;
+}
+
+.year-day {
+    font-size: 11px;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    color: var(--gc-text-primary);
+}
+
+.year-day:hover {
+    background: var(--gc-hover);
+}
+
+.year-day.other-month {
+    color: var(--gc-text-tertiary);
+    opacity: 0.4;
+}
+
+.year-day.today {
+    background: var(--gc-blue);
+    color: white;
+    font-weight: 600;
+}
+
+.year-day.today:hover {
+    background: var(--gc-blue-hover);
+}
+
+/* Task dots beneath the date number */
+.year-day-dots {
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2px;
+}
+
+.year-task-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+/* Responsive: 3 cols on smaller screens */
+@media (max-width: 900px) {
+    .year-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .year-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

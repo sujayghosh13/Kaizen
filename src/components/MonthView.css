@@ -1,0 +1,167 @@
+/* ============================================
+   MonthView — Full month grid with task bars
+   ============================================ */
+
+.month-view {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background: var(--gc-surface);
+}
+
+/* Day-of-week header row */
+.month-dow-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-bottom: 1px solid var(--gc-border);
+    background: var(--gc-surface);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.month-dow-cell {
+    text-align: center;
+    padding: 8px 0;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gc-text-tertiary);
+}
+
+/* Month grid */
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
+    flex: 1;
+}
+
+.month-day-cell {
+    border-right: 1px solid var(--gc-border-light);
+    border-bottom: 1px solid var(--gc-border-light);
+    min-height: 100px;
+    padding: 4px;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    position: relative;
+}
+
+.month-day-cell:nth-child(7n) {
+    border-right: none;
+}
+
+.month-day-cell:hover {
+    background: var(--gc-hover);
+}
+
+.month-day-cell.other-month {
+    background: var(--gc-background);
+}
+
+.month-day-cell.other-month .month-day-number {
+    color: var(--gc-text-tertiary);
+}
+
+.month-day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gc-text-primary);
+    margin-bottom: 2px;
+}
+
+.month-day-cell.today .month-day-number {
+    background: var(--gc-blue);
+    color: white;
+    font-weight: 600;
+}
+
+/* Holiday label */
+.month-holiday-label {
+    font-size: 10px;
+    color: #d93025;
+    font-weight: 500;
+    padding: 0 2px 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Task bars inside month cells */
+.month-task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.month-task-bar {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+    border-left: 3px solid transparent;
+}
+
+.month-task-bar:hover {
+    opacity: 0.85;
+}
+
+.month-task-bar.cat-personal {
+    background: var(--cat-personal-bg);
+    color: #3949ab;
+    border-left-color: var(--cat-personal);
+}
+
+.month-task-bar.cat-work {
+    background: var(--cat-work-bg);
+    color: #0277bd;
+    border-left-color: var(--cat-work);
+}
+
+.month-task-bar.cat-health {
+    background: var(--cat-health-bg);
+    color: #2e7d32;
+    border-left-color: var(--cat-health);
+}
+
+.month-task-bar.cat-learning {
+    background: var(--cat-learning-bg);
+    color: #f57f17;
+    border-left-color: var(--cat-learning);
+}
+
+.month-task-bar.completed {
+    opacity: 0.45;
+    text-decoration: line-through;
+}
+
+.month-more-tasks {
+    font-size: 11px;
+    color: var(--gc-text-tertiary);
+    padding: 1px 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.month-more-tasks:hover {
+    color: var(--gc-blue);
+}
+
+@media (max-width: 768px) {
+    .month-day-cell {
+        min-height: 70px;
+    }
+}

@@ -1,0 +1,216 @@
+/* ============================================
+   CalendarGrid — Week / Day time-slot grid
+   ============================================ */
+
+.calendar-grid-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--gc-surface);
+}
+
+/* --- All-day & Day header row --- */
+.grid-day-header {
+    display: flex;
+    border-bottom: 1px solid var(--gc-border);
+    background: var(--gc-surface);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.grid-day-header .gutter-spacer {
+    width: var(--time-gutter-width);
+    min-width: var(--time-gutter-width);
+    border-right: 1px solid var(--gc-border-light);
+}
+
+.day-header-cells {
+    display: flex;
+    flex: 1;
+}
+
+.day-header-cell {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0 6px;
+    border-right: 1px solid var(--gc-border-light);
+}
+
+.day-header-cell:last-child {
+    border-right: none;
+}
+
+.day-header-dow {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gc-text-tertiary);
+    margin-bottom: 2px;
+}
+
+.day-header-date {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--gc-text-primary);
+    transition: background var(--transition-fast);
+    cursor: pointer;
+}
+
+.day-header-date:hover {
+    background: var(--gc-hover);
+}
+
+.day-header-cell.today .day-header-dow {
+    color: var(--gc-blue);
+}
+
+.day-header-cell.today .day-header-date {
+    background: var(--gc-blue);
+    color: white;
+    font-weight: 500;
+}
+
+.day-header-cell.today .day-header-date:hover {
+    background: var(--gc-blue-hover);
+}
+
+/* Holiday labels in day header */
+.day-header-holiday {
+    font-size: 10px;
+    color: #d93025;
+    font-weight: 500;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0 4px;
+}
+
+/* --- Scrollable time grid --- */
+.grid-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+}
+
+.grid-body {
+    display: flex;
+    position: relative;
+    min-height: fit-content;
+}
+
+/* Time gutter (left column) */
+.time-gutter {
+    width: var(--time-gutter-width);
+    min-width: var(--time-gutter-width);
+    position: relative;
+}
+
+.time-gutter-label {
+    position: absolute;
+    right: 8px;
+    transform: translateY(-50%);
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gc-text-tertiary);
+    white-space: nowrap;
+}
+
+/* Day columns */
+.grid-columns {
+    display: flex;
+    flex: 1;
+}
+
+.grid-day-column {
+    flex: 1;
+    position: relative;
+    border-right: 1px solid var(--gc-border-light);
+}
+
+.grid-day-column:last-child {
+    border-right: none;
+}
+
+/* Selected / focused day column highlight */
+.grid-day-column.selected {
+    background: var(--gc-blue-light);
+}
+
+.day-header-cell.selected .day-header-dow {
+    color: var(--gc-blue);
+    font-weight: 600;
+}
+
+/* Hourly cells */
+.grid-hour-cell {
+    height: 48px;
+    border-bottom: 1px solid var(--gc-border-light);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    position: relative;
+}
+
+.grid-hour-cell:hover {
+    background: var(--gc-hover);
+}
+
+/* Half-hour divider */
+.grid-hour-cell::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-bottom: 1px dotted var(--gc-border-light);
+}
+
+/* --- Current time indicator --- */
+.current-time-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ea4335;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.current-time-line::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ea4335;
+}
+
+/* --- Empty state for a day column --- */
+.grid-empty-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--gc-text-tertiary);
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.grid-day-column:hover .grid-empty-hint {
+    opacity: 0.6;
+}

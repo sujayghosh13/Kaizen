@@ -1,0 +1,310 @@
+/* ============================================
+   TaskModal — Create / Edit task dialog
+   ============================================ */
+
+.task-modal {
+    background: var(--gc-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-3);
+    width: 460px;
+    max-width: 95vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn var(--transition-normal) ease-out;
+    overflow: hidden;
+}
+
+/* Modal header */
+.task-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gc-border-light);
+}
+
+.task-modal-header h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gc-text-primary);
+}
+
+.modal-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gc-text-secondary);
+    transition: background var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+    background: var(--gc-hover);
+}
+
+/* Modal body */
+.task-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Input groups */
+.modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modal-field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gc-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-field input,
+.modal-field textarea,
+.modal-field select {
+    padding: 10px 12px;
+    border: 1px solid var(--gc-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    background: var(--gc-surface);
+}
+
+.modal-field input:focus,
+.modal-field textarea:focus,
+.modal-field select:focus {
+    border-color: var(--gc-blue);
+    box-shadow: 0 0 0 2px var(--gc-blue-light);
+}
+
+.modal-field .title-input {
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    border-bottom: 2px solid var(--gc-border);
+    border-radius: 0;
+    padding: 8px 0;
+}
+
+.modal-field .title-input:focus {
+    border-bottom-color: var(--gc-blue);
+    box-shadow: none;
+}
+
+.modal-field textarea {
+    resize: vertical;
+    min-height: 60px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Time row */
+.modal-time-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.modal-time-row .modal-field {
+    flex: 1;
+}
+
+/* Category selector */
+.category-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.category-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 2px solid var(--gc-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.category-option:hover {
+    border-color: var(--gc-border-light);
+    background: var(--gc-hover);
+}
+
+.category-option.selected {
+    border-color: currentColor;
+    background: var(--gc-hover);
+}
+
+.category-option .cat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+}
+
+/* Modal footer */
+.task-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 12px 20px;
+    border-top: 1px solid var(--gc-border-light);
+}
+
+.modal-btn {
+    padding: 8px 24px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.modal-btn.primary {
+    background: var(--gc-blue);
+    color: var(--gc-text-on-primary);
+}
+
+.modal-btn.primary:hover {
+    background: var(--gc-blue-hover);
+    box-shadow: var(--shadow-1);
+}
+
+.modal-btn.secondary {
+    color: var(--gc-text-secondary);
+}
+
+.modal-btn.secondary:hover {
+    background: var(--gc-hover);
+}
+
+.modal-btn.danger {
+    color: #d93025;
+}
+
+.modal-btn.danger:hover {
+    background: #fce8e6;
+}
+
+.modal-footer-left {
+    margin-right: auto;
+}
+
+/* Completed toggle */
+.completed-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--gc-text-secondary);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.completed-toggle:hover {
+    background: var(--gc-hover);
+}
+
+.completed-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gc-blue);
+    cursor: pointer;
+}
+
+/* ============================================
+   Recurrence / Schedule Selector
+   ============================================ */
+
+.recurrence-options {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.recurrence-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1.5px solid var(--gc-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gc-text-secondary);
+    background: var(--gc-surface);
+}
+
+.recurrence-option:hover {
+    background: var(--gc-hover);
+    border-color: var(--gc-text-tertiary);
+}
+
+.recurrence-option.selected {
+    background: var(--gc-blue-light);
+    border-color: var(--gc-blue);
+    color: var(--gc-blue);
+}
+
+.recurrence-icon {
+    font-size: 16px !important;
+}
+
+/* Recurrence end row */
+.recurrence-end-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--gc-hover);
+    border-radius: var(--radius-sm);
+    flex-wrap: wrap;
+}
+
+.recurrence-end-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gc-text-secondary);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.recurrence-end-input {
+    padding: 6px 10px;
+    border: 1px solid var(--gc-border);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    outline: none;
+    transition: border-color var(--transition-fast);
+    background: var(--gc-surface);
+}
+
+.recurrence-end-input:focus {
+    border-color: var(--gc-blue);
+}
+
+.recurrence-end-hint {
+    font-size: 11px;
+    color: var(--gc-text-tertiary);
+    font-style: italic;
+}

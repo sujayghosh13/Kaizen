@@ -1,0 +1,766 @@
+/* ============================================
+   KAIZEN CALENDAR — Design System & Global Styles
+   Google Calendar-inspired design tokens
+   ============================================ */
+
+/* --- CSS Custom Properties --- */
+:root {
+  /* Primary palette */
+  --gc-blue: #1a73e8;
+  --gc-blue-hover: #1765cc;
+  --gc-blue-light: #e8f0fe;
+  --gc-blue-bg: #d2e3fc;
+
+  /* Surfaces */
+  --gc-surface: #ffffff;
+  --gc-background: #f8f9fa;
+  --gc-sidebar-bg: #ffffff;
+  --gc-hover: #f1f3f4;
+  --gc-hover-strong: #e8eaed;
+  --gc-border: #dadce0;
+  --gc-border-light: #e8eaed;
+
+  /* Text */
+  --gc-text-primary: #202124;
+  --gc-text-secondary: #5f6368;
+  --gc-text-tertiary: #80868b;
+  --gc-text-on-primary: #ffffff;
+
+  /* Category colors — matching Google Calendar event colors */
+  --cat-personal: #7986cb;
+  /* Lavender */
+  --cat-work: #039be5;
+  /* Peacock */
+  --cat-health: #33b679;
+  /* Sage */
+  --cat-learning: #f6bf26;
+  /* Banana */
+  --cat-personal-bg: #e8eaf6;
+  --cat-work-bg: #e1f5fe;
+  --cat-health-bg: #e8f5e9;
+  --cat-learning-bg: #fff8e1;
+
+  /* Shadows — Material Design elevation */
+  --shadow-1: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+  --shadow-2: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+  --shadow-3: 0 4px 8px 0 rgba(60, 64, 67, .3), 0 8px 16px 4px rgba(60, 64, 67, .15);
+  --shadow-fab: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout */
+  --header-height: 64px;
+  --sidebar-width: 256px;
+  --time-gutter-width: 56px;
+}
+
+/* ============================================
+   THEME SYSTEM — Multiple theme definitions
+   Applied via data-theme="<name>" on <html>
+   ============================================ */
+
+/* Shared dark-mode base overrides */
+[data-theme="dark"],
+[data-theme="material-black"],
+[data-theme="tokyo-night"],
+[data-theme="neon"],
+[data-theme="80s-retro"],
+[data-theme="ocean-deep"],
+[data-theme="forest"] {
+  color-scheme: dark;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select,
+[data-theme="material-black"] input,
+[data-theme="material-black"] textarea,
+[data-theme="material-black"] select,
+[data-theme="tokyo-night"] input,
+[data-theme="tokyo-night"] textarea,
+[data-theme="tokyo-night"] select,
+[data-theme="neon"] input,
+[data-theme="neon"] textarea,
+[data-theme="neon"] select,
+[data-theme="80s-retro"] input,
+[data-theme="80s-retro"] textarea,
+[data-theme="80s-retro"] select,
+[data-theme="ocean-deep"] input,
+[data-theme="ocean-deep"] textarea,
+[data-theme="ocean-deep"] select,
+[data-theme="forest"] input,
+[data-theme="forest"] textarea,
+[data-theme="forest"] select {
+  background: var(--gc-hover);
+  color: var(--gc-text-primary);
+  border-color: var(--gc-border);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="material-black"] input:focus,
+[data-theme="material-black"] textarea:focus,
+[data-theme="tokyo-night"] input:focus,
+[data-theme="tokyo-night"] textarea:focus,
+[data-theme="neon"] input:focus,
+[data-theme="neon"] textarea:focus,
+[data-theme="80s-retro"] input:focus,
+[data-theme="80s-retro"] textarea:focus,
+[data-theme="ocean-deep"] input:focus,
+[data-theme="ocean-deep"] textarea:focus,
+[data-theme="forest"] input:focus,
+[data-theme="forest"] textarea:focus {
+  border-color: var(--gc-blue);
+  box-shadow: 0 0 0 2px var(--gc-blue-light);
+}
+
+[data-theme="dark"] .modal-overlay,
+[data-theme="material-black"] .modal-overlay,
+[data-theme="tokyo-night"] .modal-overlay,
+[data-theme="neon"] .modal-overlay,
+[data-theme="80s-retro"] .modal-overlay,
+[data-theme="ocean-deep"] .modal-overlay,
+[data-theme="forest"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* --- 1. DARK (Standard) --- */
+[data-theme="dark"] {
+  --gc-blue: #8ab4f8;
+  --gc-blue-hover: #aecbfa;
+  --gc-blue-light: rgba(138, 180, 248, .15);
+  --gc-blue-bg: rgba(138, 180, 248, .2);
+  --gc-surface: #1e1e1e;
+  --gc-background: #121212;
+  --gc-sidebar-bg: #1e1e1e;
+  --gc-hover: #2c2c2c;
+  --gc-hover-strong: #383838;
+  --gc-border: #3c4043;
+  --gc-border-light: #2d2d2d;
+  --gc-text-primary: #e8eaed;
+  --gc-text-secondary: #9aa0a6;
+  --gc-text-tertiary: #6b7075;
+  --gc-text-on-primary: #202124;
+  --cat-personal: #7986cb;
+  --cat-work: #8ab4f8;
+  --cat-health: #81c995;
+  --cat-learning: #fdd663;
+  --cat-personal-bg: rgba(121, 134, 203, .18);
+  --cat-work-bg: rgba(138, 180, 248, .18);
+  --cat-health-bg: rgba(129, 201, 149, .18);
+  --cat-learning-bg: rgba(253, 214, 99, .18);
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, .5);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, .5);
+  --shadow-3: 0 4px 12px rgba(0, 0, 0, .6);
+  --shadow-fab: 0 2px 6px rgba(0, 0, 0, .5);
+}
+
+/* --- 2. MATERIAL BLACK (AMOLED pure black) --- */
+[data-theme="material-black"] {
+  --gc-blue: #bb86fc;
+  --gc-blue-hover: #ce9efc;
+  --gc-blue-light: rgba(187, 134, 252, .12);
+  --gc-blue-bg: rgba(187, 134, 252, .18);
+  --gc-surface: #000000;
+  --gc-background: #000000;
+  --gc-sidebar-bg: #0a0a0a;
+  --gc-hover: #1a1a1a;
+  --gc-hover-strong: #252525;
+  --gc-border: #222222;
+  --gc-border-light: #181818;
+  --gc-text-primary: #f5f5f5;
+  --gc-text-secondary: #aaaaaa;
+  --gc-text-tertiary: #666666;
+  --gc-text-on-primary: #000000;
+  --cat-personal: #bb86fc;
+  --cat-work: #03dac6;
+  --cat-health: #66bb6a;
+  --cat-learning: #ffca28;
+  --cat-personal-bg: rgba(187, 134, 252, .12);
+  --cat-work-bg: rgba(3, 218, 198, .12);
+  --cat-health-bg: rgba(102, 187, 106, .12);
+  --cat-learning-bg: rgba(255, 202, 40, .12);
+  --shadow-1: none;
+  --shadow-2: none;
+  --shadow-3: 0 0 20px rgba(187, 134, 252, .08);
+  --shadow-fab: none;
+}
+
+/* --- 3. TOKYO NIGHT (Purple/blue aesthetic) --- */
+[data-theme="tokyo-night"] {
+  --gc-blue: #7aa2f7;
+  --gc-blue-hover: #89b4fa;
+  --gc-blue-light: rgba(122, 162, 247, .15);
+  --gc-blue-bg: rgba(122, 162, 247, .2);
+  --gc-surface: #1a1b26;
+  --gc-background: #16161e;
+  --gc-sidebar-bg: #1a1b26;
+  --gc-hover: #24283b;
+  --gc-hover-strong: #2f3347;
+  --gc-border: #33384d;
+  --gc-border-light: #292e42;
+  --gc-text-primary: #c0caf5;
+  --gc-text-secondary: #a9b1d6;
+  --gc-text-tertiary: #565f89;
+  --gc-text-on-primary: #1a1b26;
+  --cat-personal: #bb9af7;
+  --cat-work: #7aa2f7;
+  --cat-health: #9ece6a;
+  --cat-learning: #e0af68;
+  --cat-personal-bg: rgba(187, 154, 247, .15);
+  --cat-work-bg: rgba(122, 162, 247, .15);
+  --cat-health-bg: rgba(158, 206, 106, .15);
+  --cat-learning-bg: rgba(224, 175, 104, .15);
+  --shadow-1: 0 1px 4px rgba(0, 0, 0, .4);
+  --shadow-2: 0 2px 8px rgba(0, 0, 0, .4);
+  --shadow-3: 0 4px 16px rgba(0, 0, 0, .5);
+  --shadow-fab: 0 2px 8px rgba(0, 0, 0, .4);
+}
+
+/* --- 4. NEON GLOW (Hot pink + cyan on dark) --- */
+[data-theme="neon"] {
+  --gc-blue: #ff2d95;
+  --gc-blue-hover: #ff5cae;
+  --gc-blue-light: rgba(255, 45, 149, .15);
+  --gc-blue-bg: rgba(255, 45, 149, .2);
+  --gc-surface: #0d0d0d;
+  --gc-background: #050505;
+  --gc-sidebar-bg: #0d0d0d;
+  --gc-hover: #1a1a2e;
+  --gc-hover-strong: #252540;
+  --gc-border: #2a2a4a;
+  --gc-border-light: #1e1e38;
+  --gc-text-primary: #eeffff;
+  --gc-text-secondary: #b0b0d0;
+  --gc-text-tertiary: #6a6a8a;
+  --gc-text-on-primary: #0d0d0d;
+  --cat-personal: #ff2d95;
+  --cat-work: #00f0ff;
+  --cat-health: #39ff14;
+  --cat-learning: #ffff00;
+  --cat-personal-bg: rgba(255, 45, 149, .15);
+  --cat-work-bg: rgba(0, 240, 255, .12);
+  --cat-health-bg: rgba(57, 255, 20, .12);
+  --cat-learning-bg: rgba(255, 255, 0, .12);
+  --shadow-1: 0 0 8px rgba(255, 45, 149, .2);
+  --shadow-2: 0 0 16px rgba(255, 45, 149, .2);
+  --shadow-3: 0 0 24px rgba(255, 45, 149, .3);
+  --shadow-fab: 0 0 12px rgba(255, 45, 149, .25);
+}
+
+/* --- 5. ANIME PASTEL (Soft kawaii colors) --- */
+[data-theme="anime"] {
+  --gc-blue: #ff8fab;
+  --gc-blue-hover: #ff6b95;
+  --gc-blue-light: rgba(255, 143, 171, .15);
+  --gc-blue-bg: rgba(255, 143, 171, .2);
+  --gc-surface: #fff5f7;
+  --gc-background: #ffeef2;
+  --gc-sidebar-bg: #fff5f7;
+  --gc-hover: #ffe4ea;
+  --gc-hover-strong: #ffd6df;
+  --gc-border: #ffc4d0;
+  --gc-border-light: #ffd9e2;
+  --gc-text-primary: #4a3040;
+  --gc-text-secondary: #7a5a6a;
+  --gc-text-tertiary: #b090a0;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #c77dff;
+  --cat-work: #72b1f4;
+  --cat-health: #7dd87d;
+  --cat-learning: #ffbe76;
+  --cat-personal-bg: rgba(199, 125, 255, .15);
+  --cat-work-bg: rgba(114, 177, 244, .15);
+  --cat-health-bg: rgba(125, 216, 125, .15);
+  --cat-learning-bg: rgba(255, 190, 118, .15);
+  --shadow-1: 0 2px 8px rgba(255, 143, 171, .15);
+  --shadow-2: 0 4px 12px rgba(255, 143, 171, .15);
+  --shadow-3: 0 6px 20px rgba(255, 143, 171, .2);
+  --shadow-fab: 0 3px 10px rgba(255, 143, 171, .2);
+}
+
+/* --- 6. 80s RETROWAVE (Synthwave gradient palette) --- */
+[data-theme="80s-retro"] {
+  --gc-blue: #f72585;
+  --gc-blue-hover: #ff4da6;
+  --gc-blue-light: rgba(247, 37, 133, .15);
+  --gc-blue-bg: rgba(247, 37, 133, .2);
+  --gc-surface: #1b0a2e;
+  --gc-background: #110728;
+  --gc-sidebar-bg: #1b0a2e;
+  --gc-hover: #2d1250;
+  --gc-hover-strong: #3b1a66;
+  --gc-border: #3f1d6b;
+  --gc-border-light: #2a1050;
+  --gc-text-primary: #ffeaff;
+  --gc-text-secondary: #d0a0e0;
+  --gc-text-tertiary: #8060a0;
+  --gc-text-on-primary: #1b0a2e;
+  --cat-personal: #b5179e;
+  --cat-work: #7209b7;
+  --cat-health: #4cc9f0;
+  --cat-learning: #f9c74f;
+  --cat-personal-bg: rgba(181, 23, 158, .18);
+  --cat-work-bg: rgba(114, 9, 183, .18);
+  --cat-health-bg: rgba(76, 201, 240, .15);
+  --cat-learning-bg: rgba(249, 199, 79, .15);
+  --shadow-1: 0 0 10px rgba(247, 37, 133, .2);
+  --shadow-2: 0 0 18px rgba(247, 37, 133, .2);
+  --shadow-3: 0 0 30px rgba(114, 9, 183, .3);
+  --shadow-fab: 0 0 14px rgba(247, 37, 133, .25);
+}
+
+/* --- 7. STONE AGE (Earthy warm tones) --- */
+[data-theme="stone-age"] {
+  --gc-blue: #a0765a;
+  --gc-blue-hover: #8b6348;
+  --gc-blue-light: rgba(160, 118, 90, .15);
+  --gc-blue-bg: rgba(160, 118, 90, .2);
+  --gc-surface: #f5efe6;
+  --gc-background: #ede4d5;
+  --gc-sidebar-bg: #f5efe6;
+  --gc-hover: #e8dece;
+  --gc-hover-strong: #ddd0bc;
+  --gc-border: #c8b89e;
+  --gc-border-light: #d8cab2;
+  --gc-text-primary: #3d2e1e;
+  --gc-text-secondary: #6b5840;
+  --gc-text-tertiary: #9a8568;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #a67c52;
+  --cat-work: #7a9e7e;
+  --cat-health: #c17767;
+  --cat-learning: #c4a35a;
+  --cat-personal-bg: rgba(166, 124, 82, .15);
+  --cat-work-bg: rgba(122, 158, 126, .15);
+  --cat-health-bg: rgba(193, 119, 103, .15);
+  --cat-learning-bg: rgba(196, 163, 90, .15);
+  --shadow-1: 0 1px 3px rgba(61, 46, 30, .15);
+  --shadow-2: 0 2px 6px rgba(61, 46, 30, .15);
+  --shadow-3: 0 4px 12px rgba(61, 46, 30, .2);
+  --shadow-fab: 0 2px 6px rgba(61, 46, 30, .15);
+}
+
+/* --- 8. ROYAL (Gold, purple, luxury) --- */
+[data-theme="royal"] {
+  --gc-blue: #d4af37;
+  --gc-blue-hover: #c4a030;
+  --gc-blue-light: rgba(212, 175, 55, .12);
+  --gc-blue-bg: rgba(212, 175, 55, .18);
+  --gc-surface: #1a1025;
+  --gc-background: #120a1e;
+  --gc-sidebar-bg: #1a1025;
+  --gc-hover: #261840;
+  --gc-hover-strong: #322050;
+  --gc-border: #3a2858;
+  --gc-border-light: #2e1e48;
+  --gc-text-primary: #f0e6d2;
+  --gc-text-secondary: #c0a888;
+  --gc-text-tertiary: #7a6050;
+  --gc-text-on-primary: #1a1025;
+  --cat-personal: #9b59b6;
+  --cat-work: #d4af37;
+  --cat-health: #2ecc71;
+  --cat-learning: #e74c3c;
+  --cat-personal-bg: rgba(155, 89, 182, .18);
+  --cat-work-bg: rgba(212, 175, 55, .15);
+  --cat-health-bg: rgba(46, 204, 113, .15);
+  --cat-learning-bg: rgba(231, 76, 60, .15);
+  --shadow-1: 0 1px 4px rgba(0, 0, 0, .5);
+  --shadow-2: 0 2px 10px rgba(212, 175, 55, .1);
+  --shadow-3: 0 4px 20px rgba(212, 175, 55, .15);
+  --shadow-fab: 0 2px 10px rgba(212, 175, 55, .12);
+}
+
+/* --- 9. OCEAN DEEP (Teal + navy) --- */
+[data-theme="ocean-deep"] {
+  --gc-blue: #22d3ee;
+  --gc-blue-hover: #06b6d4;
+  --gc-blue-light: rgba(34, 211, 238, .12);
+  --gc-blue-bg: rgba(34, 211, 238, .18);
+  --gc-surface: #0c1929;
+  --gc-background: #071320;
+  --gc-sidebar-bg: #0c1929;
+  --gc-hover: #122640;
+  --gc-hover-strong: #1a3350;
+  --gc-border: #1c3a55;
+  --gc-border-light: #152d45;
+  --gc-text-primary: #e0f2fe;
+  --gc-text-secondary: #7ec8e3;
+  --gc-text-tertiary: #3d7a99;
+  --gc-text-on-primary: #071320;
+  --cat-personal: #818cf8;
+  --cat-work: #22d3ee;
+  --cat-health: #34d399;
+  --cat-learning: #fbbf24;
+  --cat-personal-bg: rgba(129, 140, 248, .15);
+  --cat-work-bg: rgba(34, 211, 238, .12);
+  --cat-health-bg: rgba(52, 211, 153, .12);
+  --cat-learning-bg: rgba(251, 191, 36, .12);
+  --shadow-1: 0 1px 4px rgba(0, 0, 0, .4);
+  --shadow-2: 0 2px 8px rgba(0, 0, 0, .4);
+  --shadow-3: 0 4px 16px rgba(34, 211, 238, .1);
+  --shadow-fab: 0 2px 8px rgba(0, 0, 0, .4);
+}
+
+/* --- 10. FOREST (Deep green + brown) --- */
+[data-theme="forest"] {
+  --gc-blue: #4ade80;
+  --gc-blue-hover: #22c55e;
+  --gc-blue-light: rgba(74, 222, 128, .12);
+  --gc-blue-bg: rgba(74, 222, 128, .18);
+  --gc-surface: #162016;
+  --gc-background: #0e160e;
+  --gc-sidebar-bg: #162016;
+  --gc-hover: #1e2e1e;
+  --gc-hover-strong: #283828;
+  --gc-border: #2d4a2d;
+  --gc-border-light: #223422;
+  --gc-text-primary: #d4edda;
+  --gc-text-secondary: #8fbf98;
+  --gc-text-tertiary: #507050;
+  --gc-text-on-primary: #0e160e;
+  --cat-personal: #a78bfa;
+  --cat-work: #60a5fa;
+  --cat-health: #4ade80;
+  --cat-learning: #fbbf24;
+  --cat-personal-bg: rgba(167, 139, 250, .15);
+  --cat-work-bg: rgba(96, 165, 250, .12);
+  --cat-health-bg: rgba(74, 222, 128, .12);
+  --cat-learning-bg: rgba(251, 191, 36, .12);
+  --shadow-1: 0 1px 4px rgba(0, 0, 0, .4);
+  --shadow-2: 0 2px 8px rgba(0, 0, 0, .4);
+  --shadow-3: 0 4px 16px rgba(74, 222, 128, .08);
+  --shadow-fab: 0 2px 8px rgba(0, 0, 0, .4);
+}
+
+/* --- 11. LAVENDER BLOOM (Soft purple light) --- */
+[data-theme="lavender"] {
+  --gc-blue: #7c3aed;
+  --gc-blue-hover: #6d28d9;
+  --gc-blue-light: rgba(124, 58, 237, .1);
+  --gc-blue-bg: rgba(124, 58, 237, .15);
+  --gc-surface: #faf8ff;
+  --gc-background: #f3f0ff;
+  --gc-sidebar-bg: #faf8ff;
+  --gc-hover: #ede9fe;
+  --gc-hover-strong: #ddd6fe;
+  --gc-border: #c4b5fd;
+  --gc-border-light: #ddd6fe;
+  --gc-text-primary: #1e1b4b;
+  --gc-text-secondary: #4c1d95;
+  --gc-text-tertiary: #8b5cf6;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #8b5cf6;
+  --cat-work: #06b6d4;
+  --cat-health: #10b981;
+  --cat-learning: #f59e0b;
+  --cat-personal-bg: rgba(139, 92, 246, .12);
+  --cat-work-bg: rgba(6, 182, 212, .12);
+  --cat-health-bg: rgba(16, 185, 129, .12);
+  --cat-learning-bg: rgba(245, 158, 11, .12);
+  --shadow-1: 0 1px 3px rgba(124, 58, 237, .1);
+  --shadow-2: 0 2px 6px rgba(124, 58, 237, .12);
+  --shadow-3: 0 4px 12px rgba(124, 58, 237, .15);
+  --shadow-fab: 0 2px 6px rgba(124, 58, 237, .12);
+}
+
+/* --- 12. MINT GARDEN (Fresh green light) --- */
+[data-theme="mint"] {
+  --gc-blue: #059669;
+  --gc-blue-hover: #047857;
+  --gc-blue-light: rgba(5, 150, 105, .1);
+  --gc-blue-bg: rgba(5, 150, 105, .15);
+  --gc-surface: #f0fdf4;
+  --gc-background: #ecfdf5;
+  --gc-sidebar-bg: #f0fdf4;
+  --gc-hover: #d1fae5;
+  --gc-hover-strong: #a7f3d0;
+  --gc-border: #6ee7b7;
+  --gc-border-light: #a7f3d0;
+  --gc-text-primary: #064e3b;
+  --gc-text-secondary: #065f46;
+  --gc-text-tertiary: #34d399;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #8b5cf6;
+  --cat-work: #0284c7;
+  --cat-health: #059669;
+  --cat-learning: #d97706;
+  --cat-personal-bg: rgba(139, 92, 246, .12);
+  --cat-work-bg: rgba(2, 132, 199, .12);
+  --cat-health-bg: rgba(5, 150, 105, .12);
+  --cat-learning-bg: rgba(217, 119, 6, .12);
+  --shadow-1: 0 1px 3px rgba(5, 150, 105, .1);
+  --shadow-2: 0 2px 6px rgba(5, 150, 105, .1);
+  --shadow-3: 0 4px 12px rgba(5, 150, 105, .15);
+  --shadow-fab: 0 2px 6px rgba(5, 150, 105, .1);
+}
+
+/* --- 13. SUNSET GLOW (Warm orange/coral light) --- */
+[data-theme="sunset"] {
+  --gc-blue: #ea580c;
+  --gc-blue-hover: #c2410c;
+  --gc-blue-light: rgba(234, 88, 12, .1);
+  --gc-blue-bg: rgba(234, 88, 12, .15);
+  --gc-surface: #fffaf5;
+  --gc-background: #fff7ed;
+  --gc-sidebar-bg: #fffaf5;
+  --gc-hover: #ffedd5;
+  --gc-hover-strong: #fed7aa;
+  --gc-border: #fdba74;
+  --gc-border-light: #fee2c5;
+  --gc-text-primary: #431407;
+  --gc-text-secondary: #7c2d12;
+  --gc-text-tertiary: #c2410c;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #a855f7;
+  --cat-work: #ea580c;
+  --cat-health: #16a34a;
+  --cat-learning: #ca8a04;
+  --cat-personal-bg: rgba(168, 85, 247, .12);
+  --cat-work-bg: rgba(234, 88, 12, .12);
+  --cat-health-bg: rgba(22, 163, 74, .12);
+  --cat-learning-bg: rgba(202, 138, 4, .12);
+  --shadow-1: 0 1px 3px rgba(234, 88, 12, .1);
+  --shadow-2: 0 2px 6px rgba(234, 88, 12, .1);
+  --shadow-3: 0 4px 12px rgba(234, 88, 12, .15);
+  --shadow-fab: 0 2px 6px rgba(234, 88, 12, .12);
+}
+
+/* --- 14. OCEAN BREEZE (Light teal/seafoam) --- */
+[data-theme="ocean-breeze"] {
+  --gc-blue: #0891b2;
+  --gc-blue-hover: #0e7490;
+  --gc-blue-light: rgba(8, 145, 178, .1);
+  --gc-blue-bg: rgba(8, 145, 178, .15);
+  --gc-surface: #f0fdfa;
+  --gc-background: #ecfeff;
+  --gc-sidebar-bg: #f0fdfa;
+  --gc-hover: #ccfbf1;
+  --gc-hover-strong: #99f6e4;
+  --gc-border: #5eead4;
+  --gc-border-light: #99f6e4;
+  --gc-text-primary: #134e4a;
+  --gc-text-secondary: #115e59;
+  --gc-text-tertiary: #2dd4bf;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #7c3aed;
+  --cat-work: #0891b2;
+  --cat-health: #059669;
+  --cat-learning: #eab308;
+  --cat-personal-bg: rgba(124, 58, 237, .12);
+  --cat-work-bg: rgba(8, 145, 178, .12);
+  --cat-health-bg: rgba(5, 150, 105, .12);
+  --cat-learning-bg: rgba(234, 179, 8, .12);
+  --shadow-1: 0 1px 3px rgba(8, 145, 178, .1);
+  --shadow-2: 0 2px 6px rgba(8, 145, 178, .1);
+  --shadow-3: 0 4px 12px rgba(8, 145, 178, .15);
+  --shadow-fab: 0 2px 6px rgba(8, 145, 178, .1);
+}
+
+/* --- 15. ROSE GOLD (Warm pink + gold luxury light) --- */
+[data-theme="rose-gold"] {
+  --gc-blue: #be185d;
+  --gc-blue-hover: #9d174d;
+  --gc-blue-light: rgba(190, 24, 93, .1);
+  --gc-blue-bg: rgba(190, 24, 93, .15);
+  --gc-surface: #fff5f8;
+  --gc-background: #fdf2f8;
+  --gc-sidebar-bg: #fff5f8;
+  --gc-hover: #fce7f3;
+  --gc-hover-strong: #fbcfe8;
+  --gc-border: #f9a8d4;
+  --gc-border-light: #fbcfe8;
+  --gc-text-primary: #500724;
+  --gc-text-secondary: #831843;
+  --gc-text-tertiary: #db2777;
+  --gc-text-on-primary: #ffffff;
+  --cat-personal: #a855f7;
+  --cat-work: #be185d;
+  --cat-health: #059669;
+  --cat-learning: #b45309;
+  --cat-personal-bg: rgba(168, 85, 247, .12);
+  --cat-work-bg: rgba(190, 24, 93, .12);
+  --cat-health-bg: rgba(5, 150, 105, .12);
+  --cat-learning-bg: rgba(180, 83, 9, .12);
+  --shadow-1: 0 1px 3px rgba(190, 24, 93, .1);
+  --shadow-2: 0 2px 6px rgba(190, 24, 93, .1);
+  --shadow-3: 0 4px 12px rgba(190, 24, 93, .15);
+  --shadow-fab: 0 2px 6px rgba(190, 24, 93, .12);
+}
+
+/* Smooth theme transition */
+body,
+.calendar-header,
+.calendar-sidebar,
+.calendar-grid-wrapper,
+.task-modal,
+.year-view,
+.month-view {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--gc-text-primary);
+  background: var(--gc-background);
+  line-height: 1.5;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* --- Focus-visible — accessible keyboard focus ring --- */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.mini-cal-day:focus-visible,
+.grid-hour-cell:focus-visible,
+.month-day-cell:focus-visible,
+.year-day:focus-visible {
+  outline: 2px solid var(--gc-blue);
+  outline-offset: 1px;
+  border-radius: var(--radius-sm);
+}
+
+/* Today button press feedback */
+.today-btn:active {
+  background: var(--gc-blue-light);
+  border-color: var(--gc-blue);
+  color: var(--gc-blue);
+  transform: scale(0.97);
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* --- Material Icon Utility --- */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  vertical-align: middle;
+  user-select: none;
+}
+
+/* --- Scrollbar — Google Calendar style --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gc-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gc-text-tertiary);
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+  z-index: 1000;
+  animation: overlayIn var(--transition-fast) ease-out;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- Utility: Visually Hidden --- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
