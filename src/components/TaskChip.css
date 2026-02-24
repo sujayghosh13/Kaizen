@@ -36,28 +36,28 @@
     text-decoration: line-through;
 }
 
-/* Category colors */
+/* Category colors — use theme-aware colors */
 .task-chip.cat-personal {
     background: var(--cat-personal-bg);
-    color: #3949ab;
+    color: var(--cat-personal);
     border-left-color: var(--cat-personal);
 }
 
 .task-chip.cat-work {
     background: var(--cat-work-bg);
-    color: #0277bd;
+    color: var(--cat-work);
     border-left-color: var(--cat-work);
 }
 
 .task-chip.cat-health {
     background: var(--cat-health-bg);
-    color: #2e7d32;
+    color: var(--cat-health);
     border-left-color: var(--cat-health);
 }
 
 .task-chip.cat-learning {
     background: var(--cat-learning-bg);
-    color: #f57f17;
+    color: var(--cat-learning);
     border-left-color: var(--cat-learning);
 }
 

@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './SmartDecompose.css';
 
-const API_KEY_STORAGE = 'kaizen_openrouter_key';
-const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-
 /** Category colors for the preview cards. */
 const CAT_COLORS = {
     personal: '#7986cb',
@@ -19,6 +16,9 @@ function todayStr() {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
+
+const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 
 /**
  * Build the prompt for the LLM.
@@ -45,14 +45,18 @@ Goal: "${goal}"`;
 }
 
 /**
- * Call OpenRouter API with the given goal.
+ * Call OpenRouter directly using the build-time API key from Vercel env.
  */
-async function callOpenRouter(apiKey, goal, startDate) {
+async function decomposeGoal(goal, startDate) {
+    if (!API_KEY) {
+        throw new Error('AI features are not configured on this deployment.');
+    }
+
     const response = await fetch(OPENROUTER_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
+            'Authorization': `Bearer ${API_KEY}`,
             'HTTP-Referer': window.location.origin,
             'X-Title': 'Kaizen Calendar',
         },
@@ -78,7 +82,7 @@ async function callOpenRouter(apiKey, goal, startDate) {
         throw new Error('No response from the model.');
     }
 
-    // Parse the JSON array from the response (strip markdown fences if present)
+    // Parse the JSON array (strip markdown fences if present)
     let cleaned = content.trim();
     if (cleaned.startsWith('```')) {
         cleaned = cleaned.replace(/^```(?:json)?\s*/, '').replace(/\s*```$/, '');
@@ -103,15 +107,10 @@ async function callOpenRouter(apiKey, goal, startDate) {
 
 /**
  * SmartDecompose — AI-powered goal breakdown modal.
- * Uses OpenRouter to decompose a goal into 10 actionable sub-tasks.
+ * Uses a serverless proxy to decompose a goal into 10 actionable sub-tasks.
  */
 export function SmartDecompose({ onAddTasks, onClose }) {
     const inputRef = useRef(null);
-
-    // API key state
-    const [apiKey, setApiKey] = useState(() => localStorage.getItem(API_KEY_STORAGE) || '');
-    const [keyInput, setKeyInput] = useState('');
-    const [showKeyConfig, setShowKeyConfig] = useState(!apiKey);
 
     // Main state
     const [goal, setGoal] = useState('');
@@ -133,25 +132,10 @@ export function SmartDecompose({ onAddTasks, onClose }) {
         return () => window.removeEventListener('keydown', handleKey);
     }, [onClose]);
 
-    /** Save the API key to localStorage. */
-    const handleSaveKey = () => {
-        const key = keyInput.trim();
-        if (key) {
-            setApiKey(key);
-            localStorage.setItem(API_KEY_STORAGE, key);
-            setShowKeyConfig(false);
-        }
-    };
-
     /** Trigger the decomposition. */
     const handleDecompose = async () => {
         if (!goal.trim()) {
             inputRef.current?.focus();
-            return;
-        }
-        if (!apiKey) {
-            setShowKeyConfig(true);
-            setError('Please enter your OpenRouter API key first.');
             return;
         }
 
@@ -159,7 +143,7 @@ export function SmartDecompose({ onAddTasks, onClose }) {
         setPhase('loading');
 
         try {
-            const result = await callOpenRouter(apiKey, goal.trim(), startDate);
+            const result = await decomposeGoal(goal.trim(), startDate);
             setTasks(result);
             setPhase('preview');
         } catch (err) {
@@ -244,7 +228,7 @@ export function SmartDecompose({ onAddTasks, onClose }) {
                                 <button
                                     className="sd-decompose-btn"
                                     onClick={handleDecompose}
-                                    disabled={!goal.trim() || !apiKey}
+                                    disabled={!goal.trim()}
                                 >
                                     <span className="material-symbols-outlined" style={{ fontSize: 18 }}>auto_awesome</span>
                                     Decompose
@@ -259,46 +243,6 @@ export function SmartDecompose({ onAddTasks, onClose }) {
                                 </div>
                             )}
 
-                            {/* API Key Config */}
-                            <div className="sd-api-key-section">
-                                {!showKeyConfig && apiKey ? (
-                                    <div className="sd-api-key-saved">
-                                        <span className="material-symbols-outlined">check_circle</span>
-                                        OpenRouter API key saved
-                                        <button className="sd-api-key-change" onClick={() => {
-                                            setShowKeyConfig(true);
-                                            setKeyInput(apiKey);
-                                        }}>Change</button>
-                                    </div>
-                                ) : (
-                                    <>
-                                        <div className="sd-api-key-header">
-                                            <span className="material-symbols-outlined">key</span>
-                                            OpenRouter API Key
-                                        </div>
-                                        <div className="sd-api-key-row">
-                                            <input
-                                                type="password"
-                                                className="sd-api-key-input"
-                                                placeholder="sk-or-v1-..."
-                                                value={keyInput}
-                                                onChange={e => setKeyInput(e.target.value)}
-                                                onKeyDown={e => e.key === 'Enter' && handleSaveKey()}
-                                            />
-                                            <button className="sd-api-key-save" onClick={handleSaveKey}>
-                                                Save
-                                            </button>
-                                        </div>
-                                        <span className="sd-api-key-hint">
-                                            Get a free key at{' '}
-                                            <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">
-                                                openrouter.ai/keys
-                                            </a>
-                                            . Stored locally only.
-                                        </span>
-                                    </>
-                                )}
-                            </div>
                         </div>
                     )}
 

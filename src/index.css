@@ -76,7 +76,12 @@
 [data-theme="neon"],
 [data-theme="80s-retro"],
 [data-theme="ocean-deep"],
-[data-theme="forest"] {
+[data-theme="forest"],
+[data-theme="zero-g"],
+[data-theme="vaporwave"],
+[data-theme="netrunner"],
+[data-theme="terminal"],
+[data-theme="8bit"] {
   color-scheme: dark;
 }
 
@@ -100,7 +105,22 @@
 [data-theme="ocean-deep"] select,
 [data-theme="forest"] input,
 [data-theme="forest"] textarea,
-[data-theme="forest"] select {
+[data-theme="forest"] select,
+[data-theme="zero-g"] input,
+[data-theme="zero-g"] textarea,
+[data-theme="zero-g"] select,
+[data-theme="vaporwave"] input,
+[data-theme="vaporwave"] textarea,
+[data-theme="vaporwave"] select,
+[data-theme="netrunner"] input,
+[data-theme="netrunner"] textarea,
+[data-theme="netrunner"] select,
+[data-theme="terminal"] input,
+[data-theme="terminal"] textarea,
+[data-theme="terminal"] select,
+[data-theme="8bit"] input,
+[data-theme="8bit"] textarea,
+[data-theme="8bit"] select {
   background: var(--gc-hover);
   color: var(--gc-text-primary);
   border-color: var(--gc-border);
@@ -119,7 +139,17 @@
 [data-theme="ocean-deep"] input:focus,
 [data-theme="ocean-deep"] textarea:focus,
 [data-theme="forest"] input:focus,
-[data-theme="forest"] textarea:focus {
+[data-theme="forest"] textarea:focus,
+[data-theme="zero-g"] input:focus,
+[data-theme="zero-g"] textarea:focus,
+[data-theme="vaporwave"] input:focus,
+[data-theme="vaporwave"] textarea:focus,
+[data-theme="netrunner"] input:focus,
+[data-theme="netrunner"] textarea:focus,
+[data-theme="terminal"] input:focus,
+[data-theme="terminal"] textarea:focus,
+[data-theme="8bit"] input:focus,
+[data-theme="8bit"] textarea:focus {
   border-color: var(--gc-blue);
   box-shadow: 0 0 0 2px var(--gc-blue-light);
 }
@@ -130,7 +160,12 @@
 [data-theme="neon"] .modal-overlay,
 [data-theme="80s-retro"] .modal-overlay,
 [data-theme="ocean-deep"] .modal-overlay,
-[data-theme="forest"] .modal-overlay {
+[data-theme="forest"] .modal-overlay,
+[data-theme="zero-g"] .modal-overlay,
+[data-theme="vaporwave"] .modal-overlay,
+[data-theme="netrunner"] .modal-overlay,
+[data-theme="terminal"] .modal-overlay,
+[data-theme="8bit"] .modal-overlay {
   background: rgba(0, 0, 0, 0.6);
 }
 

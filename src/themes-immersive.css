@@ -1,0 +1,1143 @@
+/* ============================================
+   IMMERSIVE THEMES — Animated & Special Effects
+   10 wildly unique immersive themes, each with
+   distinct fonts, backgrounds, borders, and effects.
+   ============================================ */
+
+/* Google Fonts imports for immersive themes */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Special+Elite&family=VT323&family=Press+Start+2P&family=Orbitron:wght@400;700&family=Bangers&family=Silkscreen&display=swap');
+
+/* =============================================
+   1. LIVING SKY — Glass-morphism over a living sky
+   Glass panels, see-through surfaces, gentle glow
+   ============================================= */
+[data-theme="living-sky"] {
+    --gc-blue: #64b5f6;
+    --gc-blue-hover: #42a5f5;
+    --gc-blue-light: rgba(100, 181, 246, .2);
+    --gc-blue-bg: rgba(100, 181, 246, .25);
+    --gc-surface: rgba(255, 255, 255, 0.55);
+    --gc-background: transparent;
+    --gc-sidebar-bg: rgba(255, 255, 255, 0.45);
+    --gc-hover: rgba(255, 255, 255, 0.6);
+    --gc-hover-strong: rgba(255, 255, 255, 0.75);
+    --gc-border: rgba(255, 255, 255, 0.4);
+    --gc-border-light: rgba(255, 255, 255, 0.3);
+    --gc-text-primary: #1a237e;
+    --gc-text-secondary: #283593;
+    --gc-text-tertiary: #5c6bc0;
+    --gc-text-on-primary: #ffffff;
+    --cat-personal: #7c4dff;
+    --cat-work: #448aff;
+    --cat-health: #00c853;
+    --cat-learning: #ffd740;
+    --cat-personal-bg: rgba(124, 77, 255, .2);
+    --cat-work-bg: rgba(68, 138, 255, .2);
+    --cat-health-bg: rgba(0, 200, 83, .2);
+    --cat-learning-bg: rgba(255, 215, 64, .2);
+    --shadow-1: 0 4px 20px rgba(0, 0, 0, .08);
+    --shadow-2: 0 8px 32px rgba(0, 0, 0, .1);
+    --shadow-3: 0 12px 48px rgba(0, 0, 0, .12);
+    --shadow-fab: 0 6px 24px rgba(0, 0, 0, .12);
+}
+
+/* Every panel is glass */
+[data-theme="living-sky"] .calendar-grid-wrapper,
+[data-theme="living-sky"] .month-view,
+[data-theme="living-sky"] .year-view,
+[data-theme="living-sky"] .calendar-sidebar,
+[data-theme="living-sky"] .calendar-header {
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="living-sky"] .task-chip {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .06) !important;
+}
+
+[data-theme="living-sky"] .calendar-header {
+    background: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* =============================================
+   2. ZERO-G — Deep space, floating cards, nebula
+   ============================================= */
+[data-theme="zero-g"] {
+    --gc-blue: #7c4dff;
+    --gc-blue-hover: #b388ff;
+    --gc-blue-light: rgba(124, 77, 255, .15);
+    --gc-blue-bg: rgba(124, 77, 255, .2);
+    --gc-surface: rgba(8, 10, 25, 0.88);
+    --gc-background: #020515;
+    --gc-sidebar-bg: rgba(8, 10, 25, 0.85);
+    --gc-hover: rgba(124, 77, 255, 0.08);
+    --gc-hover-strong: rgba(124, 77, 255, 0.14);
+    --gc-border: rgba(124, 77, 255, 0.18);
+    --gc-border-light: rgba(124, 77, 255, 0.08);
+    --gc-text-primary: #e8e0ff;
+    --gc-text-secondary: #b388ff;
+    --gc-text-tertiary: #4a3880;
+    --gc-text-on-primary: #020515;
+    --cat-personal: #ea80fc;
+    --cat-work: #82b1ff;
+    --cat-health: #69f0ae;
+    --cat-learning: #fff176;
+    --cat-personal-bg: rgba(234, 128, 252, .12);
+    --cat-work-bg: rgba(130, 177, 255, .12);
+    --cat-health-bg: rgba(105, 240, 174, .12);
+    --cat-learning-bg: rgba(255, 241, 118, .12);
+    --shadow-1: 0 0 15px rgba(124, 77, 255, .12);
+    --shadow-2: 0 0 25px rgba(124, 77, 255, .15);
+    --shadow-3: 0 0 40px rgba(124, 77, 255, .18);
+    --shadow-fab: 0 0 20px rgba(124, 77, 255, .15);
+}
+
+/* Floating cards animation */
+[data-theme="zero-g"] .task-chip {
+    animation: zg-float 6s ease-in-out infinite;
+    animation-delay: calc(var(--chip-index, 0) * 0.4s);
+    border: 1px solid rgba(124, 77, 255, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+[data-theme="zero-g"] .task-chip:nth-child(odd) {
+    animation-duration: 5s;
+}
+
+[data-theme="zero-g"] .task-chip:nth-child(even) {
+    animation-duration: 7s;
+}
+
+@keyframes zg-float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-3px) rotate(0.3deg);
+    }
+
+    75% {
+        transform: translateY(2px) rotate(-0.3deg);
+    }
+}
+
+/* Glowing nebula border on sidebar */
+[data-theme="zero-g"] .calendar-sidebar {
+    border-right: 1px solid rgba(124, 77, 255, 0.15) !important;
+    box-shadow: inset -8px 0 30px -10px rgba(124, 77, 255, 0.05);
+}
+
+/* =============================================
+   3. VAPORWAVE CITY — 80s Neon, CRT, chromatic
+   ============================================= */
+[data-theme="vaporwave"] {
+    --gc-blue: #ff71ce;
+    --gc-blue-hover: #ff9de2;
+    --gc-blue-light: rgba(255, 113, 206, .18);
+    --gc-blue-bg: rgba(255, 113, 206, .22);
+    --gc-surface: rgba(15, 0, 35, 0.92);
+    --gc-background: #08001a;
+    --gc-sidebar-bg: rgba(20, 0, 45, 0.92);
+    --gc-hover: rgba(255, 113, 206, 0.08);
+    --gc-hover-strong: rgba(255, 113, 206, 0.14);
+    --gc-border: rgba(255, 113, 206, 0.28);
+    --gc-border-light: rgba(1, 205, 254, 0.15);
+    --gc-text-primary: #ffe4ff;
+    --gc-text-secondary: #ff71ce;
+    --gc-text-tertiary: #7b4a8a;
+    --gc-text-on-primary: #08001a;
+    --cat-personal: #ff71ce;
+    --cat-work: #01cdfe;
+    --cat-health: #05ffa1;
+    --cat-learning: #fffb96;
+    --cat-personal-bg: rgba(255, 113, 206, .18);
+    --cat-work-bg: rgba(1, 205, 254, .15);
+    --cat-health-bg: rgba(5, 255, 161, .15);
+    --cat-learning-bg: rgba(255, 251, 150, .15);
+    --shadow-1: 0 0 10px rgba(255, 113, 206, .25), 0 0 20px rgba(1, 205, 254, .1);
+    --shadow-2: 0 0 20px rgba(255, 113, 206, .3), 0 0 40px rgba(1, 205, 254, .12);
+    --shadow-3: 0 0 35px rgba(255, 113, 206, .35), 0 0 70px rgba(1, 205, 254, .15);
+    --shadow-fab: 0 0 18px rgba(255, 113, 206, .35);
+}
+
+/* Neon glow borders everywhere */
+[data-theme="vaporwave"] .task-chip {
+    border: 1px solid rgba(1, 205, 254, 0.4) !important;
+    box-shadow: 0 0 8px rgba(255, 113, 206, 0.15), inset 0 0 8px rgba(1, 205, 254, 0.05) !important;
+    text-shadow: 0 0 2px rgba(1, 205, 254, 0.3);
+    border-radius: 4px !important;
+}
+
+[data-theme="vaporwave"] .calendar-header {
+    border-bottom: 2px solid rgba(255, 113, 206, 0.35) !important;
+    box-shadow: 0 2px 20px rgba(255, 113, 206, 0.08);
+}
+
+[data-theme="vaporwave"] .calendar-sidebar {
+    border-right: 2px solid rgba(1, 205, 254, 0.25) !important;
+    box-shadow: inset 0 0 40px rgba(255, 113, 206, 0.03);
+}
+
+/* Subtle chromatic aberration on header title */
+[data-theme="vaporwave"] .header-title {
+    text-shadow:
+        -1px 0 rgba(255, 113, 206, 0.4),
+        1px 0 rgba(1, 205, 254, 0.4);
+    letter-spacing: 2px;
+}
+
+/* CRT scanline overlay — below UI elements */
+[data-theme="vaporwave"] .app::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.03) 0px,
+            rgba(0, 0, 0, 0.03) 1px,
+            transparent 1px,
+            transparent 3px);
+}
+
+/* =============================================
+   4. CAVEMAN — Rough stone, cave paintings
+   ============================================= */
+[data-theme="caveman"] {
+    --gc-blue: #c17050;
+    --gc-blue-hover: #d48060;
+    --gc-blue-light: rgba(193, 112, 80, .18);
+    --gc-blue-bg: rgba(193, 112, 80, .22);
+    --gc-surface: #e0cdb5;
+    --gc-background: #c4a882;
+    --gc-sidebar-bg: #d8c4a8;
+    --gc-hover: #cbb89c;
+    --gc-hover-strong: #c0a888;
+    --gc-border: #8a7050;
+    --gc-border-light: #a89070;
+    --gc-text-primary: #2e1a0e;
+    --gc-text-secondary: #4a3220;
+    --gc-text-tertiary: #7a6245;
+    --gc-text-on-primary: #f5efe6;
+    --cat-personal: #8b4513;
+    --cat-work: #6b8e23;
+    --cat-health: #cd5c5c;
+    --cat-learning: #daa520;
+    --cat-personal-bg: rgba(139, 69, 19, .2);
+    --cat-work-bg: rgba(107, 142, 35, .18);
+    --cat-health-bg: rgba(205, 92, 92, .18);
+    --cat-learning-bg: rgba(218, 165, 32, .18);
+    --shadow-1: 3px 3px 0 rgba(62, 44, 28, .2);
+    --shadow-2: 4px 4px 0 rgba(62, 44, 28, .22);
+    --shadow-3: 5px 5px 0 rgba(62, 44, 28, .25);
+    --shadow-fab: 4px 4px 0 rgba(62, 44, 28, .22);
+}
+
+/* Hand-drawn font for headers and cards only */
+[data-theme="caveman"] .header-title,
+[data-theme="caveman"] .task-chip,
+[data-theme="caveman"] .create-task-btn,
+[data-theme="caveman"] .mini-cal-title,
+[data-theme="caveman"] .view-switcher button,
+[data-theme="caveman"] .task-modal-header {
+    font-family: 'Caveat', cursive !important;
+}
+
+[data-theme="caveman"] .header-title {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+}
+
+/* Rough jagged borders using polygon clip-path */
+[data-theme="caveman"] .task-chip {
+    border-radius: 2px !important;
+    border: 2px solid #8a7050 !important;
+    box-shadow: 3px 3px 0 rgba(62, 44, 28, .15) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    position: relative;
+}
+
+[data-theme="caveman"] .calendar-header {
+    border-bottom: 3px solid #8a7050 !important;
+}
+
+[data-theme="caveman"] .calendar-sidebar {
+    border-right: 3px solid #8a7050 !important;
+}
+
+/* Everything is square/rough — zero radius */
+[data-theme="caveman"] *,
+[data-theme="caveman"] *::before,
+[data-theme="caveman"] *::after {
+    border-radius: 0 !important;
+}
+
+/* Stone texture on body */
+[data-theme="caveman"] .app {
+    background:
+        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
+        #c4a882;
+}
+
+/* =============================================
+   5. NETRUNNER — Cyberpunk rain, glitch, neon green
+   ============================================= */
+[data-theme="netrunner"] {
+    --gc-blue: #00ff9f;
+    --gc-blue-hover: #33ffb2;
+    --gc-blue-light: rgba(0, 255, 159, .14);
+    --gc-blue-bg: rgba(0, 255, 159, .2);
+    --gc-surface: rgba(10, 12, 18, 0.94);
+    --gc-background: #060810;
+    --gc-sidebar-bg: rgba(10, 14, 20, 0.92);
+    --gc-hover: rgba(0, 255, 159, 0.06);
+    --gc-hover-strong: rgba(0, 255, 159, 0.12);
+    --gc-border: rgba(0, 255, 159, 0.2);
+    --gc-border-light: rgba(0, 255, 159, 0.08);
+    --gc-text-primary: #c0ffe0;
+    --gc-text-secondary: #00ff9f;
+    --gc-text-tertiary: #1a6b3a;
+    --gc-text-on-primary: #060810;
+    --cat-personal: #ff3366;
+    --cat-work: #00ff9f;
+    --cat-health: #00ccff;
+    --cat-learning: #ffcc00;
+    --cat-personal-bg: rgba(255, 51, 102, .14);
+    --cat-work-bg: rgba(0, 255, 159, .1);
+    --cat-health-bg: rgba(0, 204, 255, .1);
+    --cat-learning-bg: rgba(255, 204, 0, .1);
+    --shadow-1: 0 0 10px rgba(0, 255, 159, .18);
+    --shadow-2: 0 0 18px rgba(0, 255, 159, .2);
+    --shadow-3: 0 0 28px rgba(0, 255, 159, .25);
+    --shadow-fab: 0 0 14px rgba(0, 255, 159, .22);
+}
+
+/* Orbitron tech font for UI chrome */
+[data-theme="netrunner"] .calendar-header,
+[data-theme="netrunner"] .calendar-header *,
+[data-theme="netrunner"] .calendar-sidebar .mini-cal-title,
+[data-theme="netrunner"] .create-task-btn,
+[data-theme="netrunner"] .view-switcher button {
+    font-family: 'Orbitron', sans-serif !important;
+}
+
+/* Neon green border glow on cards */
+[data-theme="netrunner"] .task-chip {
+    border: 1px solid rgba(0, 255, 159, 0.3) !important;
+    box-shadow: 0 0 6px rgba(0, 255, 159, 0.12), inset 0 0 6px rgba(0, 255, 159, 0.03) !important;
+    border-radius: 2px !important;
+    text-shadow: 0 0 2px rgba(0, 255, 159, 0.12);
+}
+
+/* UI flicker animation */
+[data-theme="netrunner"] .calendar-header {
+    animation: nr-flicker 10s infinite;
+    border-bottom: 1px solid rgba(0, 255, 159, 0.2) !important;
+}
+
+@keyframes nr-flicker {
+
+    0%,
+    96%,
+    100% {
+        opacity: 1;
+    }
+
+    96.5% {
+        opacity: 0.82;
+    }
+
+    97% {
+        opacity: 1;
+    }
+
+    97.5% {
+        opacity: 0.88;
+    }
+
+    98% {
+        opacity: 1;
+    }
+}
+
+/* Glitch on hover */
+[data-theme="netrunner"] .task-chip:hover {
+    animation: nr-glitch 0.3s ease;
+}
+
+@keyframes nr-glitch {
+    0% {
+        transform: translate(0);
+        clip-path: inset(0);
+    }
+
+    20% {
+        transform: translate(-2px, 1px);
+        clip-path: inset(5% 0 10% 0);
+    }
+
+    40% {
+        transform: translate(2px, -1px);
+        clip-path: inset(15% 0 5% 0);
+    }
+
+    60% {
+        transform: translate(-1px, -1px);
+        clip-path: inset(0);
+    }
+
+    80% {
+        transform: translate(1px, 1px);
+        clip-path: inset(8% 0 2% 0);
+    }
+
+    100% {
+        transform: translate(0);
+        clip-path: inset(0);
+    }
+}
+
+/* Sidebar glowing separator */
+[data-theme="netrunner"] .calendar-sidebar {
+    border-right: 1px solid rgba(0, 255, 159, 0.15) !important;
+    box-shadow: inset -5px 0 20px -8px rgba(0, 255, 159, 0.04);
+}
+
+/* =============================================
+   6. TERMINAL_01 — Coding Terminal, green phosphor
+   ============================================= */
+[data-theme="terminal"] {
+    --gc-blue: #00ff41;
+    --gc-blue-hover: #33ff66;
+    --gc-blue-light: rgba(0, 255, 65, .12);
+    --gc-blue-bg: rgba(0, 255, 65, .18);
+    --gc-surface: #0a0a0a;
+    --gc-background: #000000;
+    --gc-sidebar-bg: #050505;
+    --gc-hover: #0a1a0a;
+    --gc-hover-strong: #102010;
+    --gc-border: #0a3a0a;
+    --gc-border-light: #082808;
+    --gc-text-primary: #00ff41;
+    --gc-text-secondary: #00cc33;
+    --gc-text-tertiary: #005518;
+    --gc-text-on-primary: #000000;
+    --cat-personal: #ffcc00;
+    --cat-work: #00ff41;
+    --cat-health: #00ccff;
+    --cat-learning: #ff6600;
+    --cat-personal-bg: rgba(255, 204, 0, .1);
+    --cat-work-bg: rgba(0, 255, 65, .08);
+    --cat-health-bg: rgba(0, 204, 255, .08);
+    --cat-learning-bg: rgba(255, 102, 0, .08);
+    --shadow-1: 0 0 8px rgba(0, 255, 65, .08);
+    --shadow-2: 0 0 14px rgba(0, 255, 65, .1);
+    --shadow-3: 0 0 22px rgba(0, 255, 65, .12);
+    --shadow-fab: 0 0 12px rgba(0, 255, 65, .1);
+}
+
+/* VT323 monospace for UI elements */
+[data-theme="terminal"] .header-title,
+[data-theme="terminal"] .task-chip,
+[data-theme="terminal"] .calendar-sidebar,
+[data-theme="terminal"] .create-task-btn,
+[data-theme="terminal"] .mini-cal-title,
+[data-theme="terminal"] .view-switcher button {
+    font-family: 'VT323', monospace !important;
+    letter-spacing: 0.8px;
+}
+
+[data-theme="terminal"] .header-title {
+    font-size: 22px !important;
+}
+
+/* Zero border-radius — everything is square blocks */
+[data-theme="terminal"] *,
+[data-theme="terminal"] *::before,
+[data-theme="terminal"] *::after {
+    border-radius: 0 !important;
+}
+
+[data-theme="terminal"] .task-chip {
+    border: 1px solid rgba(0, 255, 65, 0.25) !important;
+    font-size: 16px !important;
+    letter-spacing: 1px !important;
+}
+
+/* Blinking cursor effect on header title */
+[data-theme="terminal"] .header-title::after {
+    content: '█';
+    animation: term-blink 1s step-end infinite;
+    margin-left: 4px;
+    color: #00ff41;
+}
+
+@keyframes term-blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Green phosphor glow on all text */
+[data-theme="terminal"] .calendar-header,
+[data-theme="terminal"] .calendar-sidebar,
+[data-theme="terminal"] .calendar-grid-wrapper,
+[data-theme="terminal"] .month-view,
+[data-theme="terminal"] .year-view {
+    text-shadow: 0 0 4px rgba(0, 255, 65, 0.35);
+}
+
+/* Header styled like a terminal title bar */
+[data-theme="terminal"] .calendar-header {
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2) !important;
+}
+
+/* Command prompt style on sidebar */
+[data-theme="terminal"] .calendar-sidebar {
+    border-right: 1px solid rgba(0, 255, 65, 0.15) !important;
+}
+
+/* Scanlines — below UI elements */
+[data-theme="terminal"] .app::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 255, 65, 0.015) 0px,
+            rgba(0, 255, 65, 0.015) 1px,
+            transparent 1px,
+            transparent 2px);
+}
+
+/* =============================================
+   7. SHONEN JUMP — Manga action B&W
+   ============================================= */
+[data-theme="shonen"] {
+    --gc-blue: #ff1744;
+    --gc-blue-hover: #ff5252;
+    --gc-blue-light: rgba(255, 23, 68, .15);
+    --gc-blue-bg: rgba(255, 23, 68, .2);
+    --gc-surface: #fafafa;
+    --gc-background: #eeeeee;
+    --gc-sidebar-bg: #f2f2f2;
+    --gc-hover: #e0e0e0;
+    --gc-hover-strong: #d0d0d0;
+    --gc-border: #1a1a1a;
+    --gc-border-light: #cccccc;
+    --gc-text-primary: #0a0a0a;
+    --gc-text-secondary: #2a2a2a;
+    --gc-text-tertiary: #777777;
+    --gc-text-on-primary: #ffffff;
+    --cat-personal: #ff1744;
+    --cat-work: #111111;
+    --cat-health: #444444;
+    --cat-learning: #ff6d00;
+    --cat-personal-bg: rgba(255, 23, 68, .12);
+    --cat-work-bg: rgba(17, 17, 17, .08);
+    --cat-health-bg: rgba(68, 68, 68, .08);
+    --cat-learning-bg: rgba(255, 109, 0, .12);
+    --shadow-1: 3px 3px 0 #111;
+    --shadow-2: 4px 4px 0 #111;
+    --shadow-3: 5px 5px 0 #111;
+    --shadow-fab: 4px 4px 0 #111;
+}
+
+/* Bangers font for headings — manga style */
+[data-theme="shonen"] .header-title,
+[data-theme="shonen"] .task-chip,
+[data-theme="shonen"] .create-task-btn,
+[data-theme="shonen"] .mini-cal-title,
+[data-theme="shonen"] .view-switcher button,
+[data-theme="shonen"] .task-modal-header,
+[data-theme="shonen"] .calendar-sidebar .mini-cal-title {
+    font-family: 'Bangers', cursive !important;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+[data-theme="shonen"] .header-title {
+    font-size: 22px !important;
+}
+
+/* Bold manga-style borders — THICK ink */
+[data-theme="shonen"] .task-chip {
+    border: 3px solid #111 !important;
+    border-radius: 0 !important;
+    font-weight: 900;
+    box-shadow: 3px 3px 0 #111 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+[data-theme="shonen"] .calendar-header {
+    border-bottom: 4px solid #111 !important;
+    background: #fafafa !important;
+}
+
+[data-theme="shonen"] .calendar-sidebar {
+    border-right: 4px solid #111 !important;
+}
+
+/* Zero radius everywhere — sharp manga panels */
+[data-theme="shonen"] *,
+[data-theme="shonen"] *::before,
+[data-theme="shonen"] *::after {
+    border-radius: 0 !important;
+}
+
+/* Halftone dot overlay */
+[data-theme="shonen"] .app::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.04;
+    background-image: radial-gradient(circle, #000 1.2px, transparent 1.2px);
+    background-size: 5px 5px;
+}
+
+/* Speed lines on main content area */
+[data-theme="shonen"] .calendar-grid-wrapper::before,
+[data-theme="shonen"] .month-view::before,
+[data-theme="shonen"] .year-view::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background: repeating-linear-gradient(-15deg,
+            transparent 0px, transparent 3px,
+            rgba(0, 0, 0, 0.03) 3px, rgba(0, 0, 0, 0.03) 4px);
+}
+
+/* =============================================
+   8. THE DETECTIVE — Noir, corkboard, typewriter
+   ============================================= */
+[data-theme="detective"] {
+    --gc-blue: #cc2222;
+    --gc-blue-hover: #ee3333;
+    --gc-blue-light: rgba(204, 34, 34, .12);
+    --gc-blue-bg: rgba(204, 34, 34, .18);
+    --gc-surface: #f0e4d0;
+    --gc-background: #c8a870;
+    --gc-sidebar-bg: #e4d4b8;
+    --gc-hover: #d8c8a8;
+    --gc-hover-strong: #ccb898;
+    --gc-border: #907050;
+    --gc-border-light: #b09878;
+    --gc-text-primary: #1a0e08;
+    --gc-text-secondary: #3a2818;
+    --gc-text-tertiary: #6a5438;
+    --gc-text-on-primary: #f0e4d0;
+    --cat-personal: #8b2252;
+    --cat-work: #cc2222;
+    --cat-health: #1a6b3a;
+    --cat-learning: #cc8800;
+    --cat-personal-bg: rgba(139, 34, 82, .15);
+    --cat-work-bg: rgba(204, 34, 34, .12);
+    --cat-health-bg: rgba(26, 107, 58, .12);
+    --cat-learning-bg: rgba(204, 136, 0, .12);
+    --shadow-1: 2px 3px 8px rgba(44, 24, 16, .35);
+    --shadow-2: 3px 5px 14px rgba(44, 24, 16, .35);
+    --shadow-3: 5px 7px 22px rgba(44, 24, 16, .4);
+    --shadow-fab: 3px 5px 14px rgba(44, 24, 16, .35);
+}
+
+/* Special Elite typewriter font for UI */
+[data-theme="detective"] .header-title,
+[data-theme="detective"] .task-chip,
+[data-theme="detective"] .create-task-btn,
+[data-theme="detective"] .mini-cal-title,
+[data-theme="detective"] .view-switcher button,
+[data-theme="detective"] .task-modal-header {
+    font-family: 'Special Elite', cursive !important;
+}
+
+[data-theme="detective"] .header-title {
+    font-size: 20px !important;
+    letter-spacing: 1px;
+}
+
+/* Pinned paper look for task chips */
+[data-theme="detective"] .task-chip {
+    background: #fffff0 !important;
+    color: #1a0e08 !important;
+    border: none !important;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, .2), inset 0 0 50px rgba(0, 0, 0, .02) !important;
+    border-radius: 1px !important;
+    position: relative;
+}
+
+/* Red pin dot on each task */
+[data-theme="detective"] .task-chip::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #cc3333 60%, #992222 100%);
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+}
+
+/* Rough paper texture for corkboard */
+[data-theme="detective"] .app {
+    background:
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E"),
+        linear-gradient(145deg, #c8a870, #b89860, #a88850);
+}
+
+[data-theme="detective"] .calendar-header {
+    border-bottom: 2px solid #907050 !important;
+    background: #e4d4b8 !important;
+}
+
+[data-theme="detective"] .calendar-sidebar {
+    border-right: 2px solid #907050 !important;
+}
+
+/* =============================================
+   9. ZEN GARDEN — Calm nature, smooth stones
+   ============================================= */
+[data-theme="zen-garden"] {
+    --gc-blue: #4a8c5e;
+    --gc-blue-hover: #3a7a4e;
+    --gc-blue-light: rgba(74, 140, 94, .12);
+    --gc-blue-bg: rgba(74, 140, 94, .18);
+    --gc-surface: #f8f4ec;
+    --gc-background: #efe8d8;
+    --gc-sidebar-bg: #f4eee4;
+    --gc-hover: #e8e0cc;
+    --gc-hover-strong: #dcd2b8;
+    --gc-border: #c8b898;
+    --gc-border-light: #d8cca8;
+    --gc-text-primary: #2a2618;
+    --gc-text-secondary: #4a4430;
+    --gc-text-tertiary: #8a8060;
+    --gc-text-on-primary: #f8f4ec;
+    --cat-personal: #7b5ea7;
+    --cat-work: #4a8c5e;
+    --cat-health: #b86848;
+    --cat-learning: #a08810;
+    --cat-personal-bg: rgba(123, 94, 167, .12);
+    --cat-work-bg: rgba(74, 140, 94, .12);
+    --cat-health-bg: rgba(184, 104, 72, .12);
+    --cat-learning-bg: rgba(160, 136, 16, .12);
+    --shadow-1: 0 1px 4px rgba(42, 38, 24, .08);
+    --shadow-2: 0 2px 8px rgba(42, 38, 24, .1);
+    --shadow-3: 0 4px 16px rgba(42, 38, 24, .12);
+    --shadow-fab: 0 2px 8px rgba(42, 38, 24, .1);
+}
+
+/* Smooth stone-like task chips */
+[data-theme="zen-garden"] .task-chip {
+    border-radius: 24px !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .06), inset 0 1px 0 rgba(255, 255, 255, .5) !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+}
+
+/* Raked sand lines on grid */
+[data-theme="zen-garden"] .calendar-grid-wrapper,
+[data-theme="zen-garden"] .month-view,
+[data-theme="zen-garden"] .year-view {
+    background-image:
+        repeating-linear-gradient(0deg,
+            transparent, transparent 20px,
+            rgba(180, 160, 120, 0.06) 20px,
+            rgba(180, 160, 120, 0.06) 22px);
+}
+
+/* Calm, slower transitions for everything */
+[data-theme="zen-garden"] * {
+    transition-duration: 0.5s !important;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+/* Soft natural borders */
+[data-theme="zen-garden"] .calendar-header {
+    border-bottom: 1px solid rgba(180, 160, 120, 0.3) !important;
+}
+
+[data-theme="zen-garden"] .calendar-sidebar {
+    border-right: 1px solid rgba(180, 160, 120, 0.3) !important;
+}
+
+/* Circular rake pattern in background */
+[data-theme="zen-garden"] .calendar-grid-wrapper::after,
+[data-theme="zen-garden"] .month-view::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 1px solid rgba(160, 140, 100, 0.08);
+    box-shadow:
+        0 0 0 20px transparent,
+        0 0 0 21px rgba(160, 140, 100, 0.05),
+        0 0 0 42px transparent,
+        0 0 0 43px rgba(160, 140, 100, 0.03);
+    pointer-events: none;
+}
+
+/* =============================================
+   10. 8-BIT DUNGEON — RPG Pixel Art
+   ============================================= */
+[data-theme="8bit"] {
+    --gc-blue: #5b6ee1;
+    --gc-blue-hover: #7382e8;
+    --gc-blue-light: rgba(91, 110, 225, .18);
+    --gc-blue-bg: rgba(91, 110, 225, .22);
+    --gc-surface: #222034;
+    --gc-background: #14102a;
+    --gc-sidebar-bg: #1c1832;
+    --gc-hover: #2e2a48;
+    --gc-hover-strong: #3a3558;
+    --gc-border: #443e65;
+    --gc-border-light: #302c4a;
+    --gc-text-primary: #cbdbfc;
+    --gc-text-secondary: #8b9bb4;
+    --gc-text-tertiary: #524f72;
+    --gc-text-on-primary: #222034;
+    --cat-personal: #d77bba;
+    --cat-work: #5b6ee1;
+    --cat-health: #6abe30;
+    --cat-learning: #fbf236;
+    --cat-personal-bg: rgba(215, 123, 186, .18);
+    --cat-work-bg: rgba(91, 110, 225, .15);
+    --cat-health-bg: rgba(106, 190, 48, .15);
+    --cat-learning-bg: rgba(251, 242, 54, .15);
+    --shadow-1: 3px 3px 0 rgba(0, 0, 0, .6);
+    --shadow-2: 4px 4px 0 rgba(0, 0, 0, .6);
+    --shadow-3: 5px 5px 0 rgba(0, 0, 0, .7);
+    --shadow-fab: 4px 4px 0 rgba(0, 0, 0, .6);
+}
+
+/* Press Start 2P pixel font for retro UI */
+[data-theme="8bit"] .header-title,
+[data-theme="8bit"] .task-chip,
+[data-theme="8bit"] .create-task-btn,
+[data-theme="8bit"] .smart-decompose-trigger,
+[data-theme="8bit"] .view-switcher button,
+[data-theme="8bit"] .mini-cal-title,
+[data-theme="8bit"] .task-modal-header {
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* Adjusted sizes for pixel perfection */
+[data-theme="8bit"] .header-title {
+    font-size: 14px !important;
+    letter-spacing: 1px;
+}
+
+[data-theme="8bit"] .task-chip {
+    font-size: 10px !important;
+    line-height: 1.6 !important;
+    padding: 8px 10px !important;
+}
+
+[data-theme="8bit"] .create-task-btn,
+[data-theme="8bit"] .smart-decompose-trigger,
+[data-theme="8bit"] .view-switcher button {
+    font-size: 11px !important;
+}
+
+[data-theme="8bit"] .mini-cal-title {
+    font-size: 10px !important;
+}
+
+/* Pixel-perfect: no border-radius anywhere */
+[data-theme="8bit"] *,
+[data-theme="8bit"] *::before,
+[data-theme="8bit"] *::after {
+    border-radius: 0 !important;
+}
+
+/* Pixel border on task chips — thick retro style */
+[data-theme="8bit"] .task-chip {
+    border: 3px solid var(--gc-border) !important;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .6) !important;
+}
+
+/* Pixelated rendering */
+[data-theme="8bit"] .app {
+    image-rendering: pixelated;
+}
+
+/* Thick retro borders */
+[data-theme="8bit"] .calendar-header {
+    border-bottom: 3px solid var(--gc-border) !important;
+}
+
+[data-theme="8bit"] .calendar-sidebar {
+    border-right: 3px solid var(--gc-border) !important;
+}
+
+/* HP bar style accent for header */
+[data-theme="8bit"] .calendar-header::after {
+    content: '♥ HP ████████';
+    position: absolute;
+    right: 140px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 8px;
+    color: #6abe30;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* =============================================
+   THEME-SPECIFIC BUTTON & PANEL STYLING
+   ============================================= */
+
+/* Living Sky — Glassmorphic buttons & panels */
+[data-theme="living-sky"] .create-task-btn,
+[data-theme="living-sky"] .smart-decompose-trigger,
+[data-theme="living-sky"] .view-switcher button {
+    backdrop-filter: blur(15px) !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 12px !important;
+}
+
+[data-theme="living-sky"] .create-task-btn:hover,
+[data-theme="living-sky"] .smart-decompose-trigger:hover,
+[data-theme="living-sky"] .view-switcher button:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Zero-G — Floating nebula cards */
+[data-theme="zero-g"] .create-task-btn,
+[data-theme="zero-g"] .smart-decompose-trigger {
+    background: rgba(124, 77, 255, 0.1) !important;
+    border: 1px solid rgba(124, 77, 255, 0.3) !important;
+    box-shadow: 0 0 15px rgba(124, 77, 255, 0.15) !important;
+}
+
+[data-theme="zero-g"] .create-task-btn:hover,
+[data-theme="zero-g"] .smart-decompose-trigger:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(124, 77, 255, 0.25) !important;
+}
+
+/* Vaporwave — neon buttons with chromatic shift */
+[data-theme="vaporwave"] .create-task-btn,
+[data-theme="vaporwave"] .smart-decompose-trigger {
+    background: rgba(255, 113, 206, 0.08) !important;
+    border: 2px solid rgba(1, 205, 254, 0.4) !important;
+    box-shadow: 0 0 12px rgba(255, 113, 206, 0.2) !important;
+    font-weight: 600;
+}
+
+[data-theme="vaporwave"] .create-task-btn:hover,
+[data-theme="vaporwave"] .smart-decompose-trigger:hover {
+    box-shadow: 0 0 20px rgba(255, 113, 206, 0.4), 0 0 30px rgba(1, 205, 254, 0.2) !important;
+}
+
+/* Caveman — Rough stone buttons */
+[data-theme="caveman"] .create-task-btn,
+[data-theme="caveman"] .smart-decompose-trigger {
+    background: #d8c4a8 !important;
+    border: 2px solid #8a7050 !important;
+    box-shadow: 3px 3px 0 rgba(62, 44, 28, .2) !important;
+    border-radius: 0 !important;
+    font-weight: 700;
+}
+
+[data-theme="caveman"] .create-task-btn:hover,
+[data-theme="caveman"] .smart-decompose-trigger:hover {
+    box-shadow: 4px 4px 0 rgba(62, 44, 28, .3) !important;
+    transform: translate(-1px, -1px);
+}
+
+/* Netrunner — Glowing cyberpunk buttons */
+[data-theme="netrunner"] .create-task-btn,
+[data-theme="netrunner"] .smart-decompose-trigger {
+    background: rgba(0, 255, 159, 0.08) !important;
+    border: 1px solid rgba(0, 255, 159, 0.4) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 159, 0.2), inset 0 0 10px rgba(0, 255, 159, 0.03) !important;
+    border-radius: 2px !important;
+}
+
+[data-theme="netrunner"] .create-task-btn:hover,
+[data-theme="netrunner"] .smart-decompose-trigger:hover {
+    box-shadow: 0 0 16px rgba(0, 255, 159, 0.35), inset 0 0 12px rgba(0, 255, 159, 0.08) !important;
+    animation: nr-glitch 0.2s ease;
+}
+
+/* Terminal — Monospace CLI buttons */
+[data-theme="terminal"] .create-task-btn,
+[data-theme="terminal"] .smart-decompose-trigger {
+    background: #0a0a0a !important;
+    border: 1px solid rgba(0, 255, 65, 0.3) !important;
+    border-radius: 0 !important;
+    font-family: 'VT323', monospace !important;
+    letter-spacing: 0.8px;
+}
+
+[data-theme="terminal"] .create-task-btn:hover,
+[data-theme="terminal"] .smart-decompose-trigger:hover {
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.15) !important;
+}
+
+/* Shonen — Bold manga buttons */
+[data-theme="shonen"] .create-task-btn,
+[data-theme="shonen"] .smart-decompose-trigger {
+    background: #f0f0f0 !important;
+    border: 3px solid #111 !important;
+    box-shadow: 3px 3px 0 #111 !important;
+    border-radius: 0 !important;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+[data-theme="shonen"] .create-task-btn:hover,
+[data-theme="shonen"] .smart-decompose-trigger:hover {
+    box-shadow: 4px 4px 0 #111 !important;
+    transform: translate(-1px, -1px);
+}
+
+/* Detective — Typewriter pinboard buttons */
+[data-theme="detective"] .create-task-btn,
+[data-theme="detective"] .smart-decompose-trigger {
+    background: #fffff0 !important;
+    border: 1px solid #907050 !important;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .15) !important;
+    border-radius: 1px !important;
+    font-family: 'Special Elite', cursive !important;
+}
+
+[data-theme="detective"] .create-task-btn:hover,
+[data-theme="detective"] .smart-decompose-trigger:hover {
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, .25) !important;
+}
+
+/* Zen Garden — Smooth rounded buttons */
+[data-theme="zen-garden"] .create-task-btn,
+[data-theme="zen-garden"] .smart-decompose-trigger {
+    background: rgba(74, 140, 94, 0.12) !important;
+    border: 1px solid rgba(74, 140, 94, 0.2) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .05) !important;
+}
+
+[data-theme="zen-garden"] .create-task-btn:hover,
+[data-theme="zen-garden"] .smart-decompose-trigger:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08) !important;
+}
+
+/* 8-Bit — Pixel perfect chunky buttons */
+[data-theme="8bit"] .create-task-btn,
+[data-theme="8bit"] .smart-decompose-trigger {
+    background: #443e65 !important;
+    border: 3px solid #302c4a !important;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .6) !important;
+    border-radius: 0 !important;
+    font-family: 'Press Start 2P', monospace !important;
+    font-size: 10px !important;
+}
+
+[data-theme="8bit"] .create-task-btn:hover,
+[data-theme="8bit"] .smart-decompose-trigger:hover {
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .7) !important;
+    transform: translate(-1px, -1px);
+}
+
+/* =============================================
+   ENHANCED PANEL & CARD STYLING
+   ============================================= */
+
+/* Living Sky — Glassmorphic panels */
+[data-theme="living-sky"] .mini-calendar,
+[data-theme="living-sky"] .calendar-categories {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+}
+
+/* Vaporwave — Neon-outlined panels */
+[data-theme="vaporwave"] .mini-calendar,
+[data-theme="vaporwave"] .calendar-categories {
+    border: 2px solid rgba(1, 205, 254, 0.3) !important;
+    background: rgba(15, 0, 35, 0.6) !important;
+    box-shadow: inset 0 0 20px rgba(255, 113, 206, 0.04) !important;
+}
+
+/* Caveman — Stone texture panels */
+[data-theme="caveman"] .mini-calendar,
+[data-theme="caveman"] .calendar-categories {
+    background: #cbb89c !important;
+    border: 2px solid #8a7050 !important;
+    border-radius: 0 !important;
+}
+
+/* Netrunner — Green glowing panels */
+[data-theme="netrunner"] .mini-calendar,
+[data-theme="netrunner"] .calendar-categories {
+    background: rgba(10, 12, 18, 0.8) !important;
+    border: 1px solid rgba(0, 255, 159, 0.2) !important;
+    box-shadow: inset 0 0 15px rgba(0, 255, 159, 0.03) !important;
+}
+
+/* Terminal — CRT screen panels */
+[data-theme="terminal"] .mini-calendar,
+[data-theme="terminal"] .calendar-categories {
+    background: #0a0a0a !important;
+    border: 1px solid rgba(0, 255, 65, 0.2) !important;
+    border-radius: 0 !important;
+}
+
+/* Detective — Pinned paper panels */
+[data-theme="detective"] .mini-calendar,
+[data-theme="detective"] .calendar-categories {
+    background: #f0ede5 !important;
+    border: 1px solid #b09878 !important;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, .08) !important;
+}
+
+/* Zen Garden — Soft natural panels */
+[data-theme="zen-garden"] .mini-calendar,
+[data-theme="zen-garden"] .calendar-categories {
+    background: rgba(248, 244, 236, 0.8) !important;
+    border: 1px solid rgba(180, 160, 120, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+/* 8-Bit — Chunky pixel panels */
+[data-theme="8bit"] .mini-calendar,
+[data-theme="8bit"] .calendar-categories {
+    background: #222034 !important;
+    border: 3px solid #443e65 !important;
+    border-radius: 0 !important;
+}

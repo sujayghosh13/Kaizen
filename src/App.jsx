@@ -6,40 +6,18 @@ import { MonthView } from './components/MonthView';
 import { YearView } from './components/YearView';
 import { TaskModal } from './components/TaskModal';
 import { SmartDecompose } from './components/SmartDecompose';
+import { ThemeEffects } from './components/ThemeEffects';
+import { AuthModal } from './components/AuthModal';
+import { useAuth, useTasks, usePreferences } from './hooks/useSupabase';
 import { useTaskAlerts } from './hooks/useTaskAlerts';
+import './themes-immersive.css';
 import './App.css';
-
-/**
- * LocalStorage keys for persistence.
- */
-const STORAGE_KEY = 'kaizen_calendar_tasks';
-const THEME_KEY = 'kaizen_theme';
-const ALERTS_KEY = 'kaizen_alerts_enabled';
 
 /**
  * Generate a unique task ID.
  */
 function generateId() {
     return 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-}
-
-/**
- * Load tasks from localStorage.
- */
-function loadTasks() {
-    try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
-    } catch {
-        return [];
-    }
-}
-
-/**
- * Save tasks to localStorage.
- */
-function saveTasks(tasks) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
 /**
@@ -166,10 +144,18 @@ function getVisibleRange(currentDate, view) {
  * Supports daily, weekly, monthly, and yearly recurring schedules.
  */
 function App() {
-    // --- State ---
-    const [tasks, setTasks] = useState(() => loadTasks());
+    // --- Auth & Supabase hooks ---
+    const { user, loading: authLoading, signUp, signIn, signOut } = useAuth();
+    const [showAuth, setShowAuth] = useState(false);
+    const [authDismissed, setAuthDismissed] = useState(() => {
+        return localStorage.getItem('kaizen_auth_dismissed') === 'true';
+    });
+    const { tasks, setTasks, loading: tasksLoading, addTask, updateTask, deleteTask, deleteByCategory } = useTasks(user);
+    const { theme, alertsEnabled, updateTheme, updateAlerts } = usePreferences(user);
+
+    // --- UI State ---
     const [currentDate, setCurrentDate] = useState(() => new Date());
-    const [view, setView] = useState('week');       // 'day' | 'week' | 'month' | 'year'
+    const [view, setView] = useState('week');
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [editingTask, setEditingTask] = useState(null);
@@ -178,33 +164,15 @@ function App() {
     const [defaultCategory, setDefaultCategory] = useState(null);
     const [smartDecomposeOpen, setSmartDecomposeOpen] = useState(false);
     const [activeCategories, setActiveCategories] = useState(new Set(['personal', 'work', 'health', 'learning']));
-    const [alertsEnabled, setAlertsEnabled] = useState(() => {
-        const saved = localStorage.getItem(ALERTS_KEY);
-        return saved === null ? true : saved === 'true';
-    });
-    const [theme, setTheme] = useState(() => {
-        const saved = localStorage.getItem(THEME_KEY);
-        if (saved) return saved;
-        return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    });
 
-    // Persist tasks whenever they change
+    // Show auth modal on first visit if not signed in and not dismissed
     useEffect(() => {
-        saveTasks(tasks);
-    }, [tasks]);
+        if (!authLoading && !user && !authDismissed) {
+            setShowAuth(true);
+        }
+    }, [authLoading, user, authDismissed]);
 
-    // Sync theme with <html> data attribute and localStorage
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem(THEME_KEY, theme);
-    }, [theme]);
-
-    // Persist alerts preference
-    useEffect(() => {
-        localStorage.setItem(ALERTS_KEY, String(alertsEnabled));
-    }, [alertsEnabled]);
-
-    const handleThemeChange = useCallback((newTheme) => setTheme(newTheme), []);
+    const handleThemeChange = useCallback((newTheme) => updateTheme(newTheme), [updateTheme]);
 
     // Task alert notifications
     useTaskAlerts(tasks, alertsEnabled);
@@ -295,9 +263,9 @@ function App() {
     /** Delete all tasks in a given category. */
     const handleDeleteCategoryTasks = useCallback((catId) => {
         if (window.confirm(`Delete all ${catId} tasks? This cannot be undone.`)) {
-            setTasks(prev => prev.filter(t => t.category !== catId));
+            deleteByCategory(catId);
         }
-    }, []);
+    }, [deleteByCategory]);
 
     /** Open modal to create a new task from a clicked time slot. */
     const handleSlotClick = useCallback((date, time) => {
@@ -328,23 +296,21 @@ function App() {
 
     /** Save a task (create or update). */
     const handleSaveTask = useCallback((taskData) => {
-        setTasks(prev => {
-            if (taskData.id) {
-                return prev.map(t => t.id === taskData.id ? { ...taskData } : t);
-            } else {
-                return [...prev, { ...taskData, id: generateId() }];
-            }
-        });
+        if (taskData.id) {
+            updateTask(taskData);
+        } else {
+            addTask(taskData);
+        }
         setModalOpen(false);
         setEditingTask(null);
-    }, []);
+    }, [addTask, updateTask]);
 
     /** Delete a task by ID. */
     const handleDeleteTask = useCallback((taskId) => {
-        setTasks(prev => prev.filter(t => t.id !== taskId));
+        deleteTask(taskId);
         setModalOpen(false);
         setEditingTask(null);
-    }, []);
+    }, [deleteTask]);
 
     /** Close the modal. */
     const handleCloseModal = useCallback(() => {
@@ -400,6 +366,27 @@ function App() {
 
     return (
         <div className="app">
+            <ThemeEffects theme={theme} />
+
+            {/* Auth Modal */}
+            {showAuth && !user && (
+                <AuthModal
+                    onSignIn={async (email, pw) => {
+                        await signIn(email, pw);
+                        setShowAuth(false);
+                    }}
+                    onSignUp={async (email, pw) => {
+                        await signUp(email, pw);
+                        setShowAuth(false);
+                    }}
+                    onDismiss={() => {
+                        setShowAuth(false);
+                        setAuthDismissed(true);
+                        localStorage.setItem('kaizen_auth_dismissed', 'true');
+                    }}
+                />
+            )}
+
             {/* Header Toolbar */}
             <CalendarHeader
                 currentDate={currentDate}
@@ -407,13 +394,16 @@ function App() {
                 sidebarOpen={sidebarOpen}
                 currentTheme={theme}
                 alertsEnabled={alertsEnabled}
+                user={user}
                 onToggleSidebar={handleToggleSidebar}
                 onToday={handleToday}
                 onPrev={handlePrev}
                 onNext={handleNext}
                 onViewChange={handleViewChange}
                 onThemeChange={handleThemeChange}
-                onToggleAlerts={() => setAlertsEnabled(prev => !prev)}
+                onToggleAlerts={() => updateAlerts(!alertsEnabled)}
+                onSignOut={signOut}
+                onShowAuth={() => setShowAuth(true)}
             />
 
             {/* Body: Sidebar + Active View */}
@@ -451,11 +441,7 @@ function App() {
             {smartDecomposeOpen && (
                 <SmartDecompose
                     onAddTasks={(newTasks) => {
-                        const tasksWithIds = newTasks.map(t => ({
-                            ...t,
-                            id: 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                        }));
-                        setTasks(prev => [...prev, ...tasksWithIds]);
+                        newTasks.forEach(t => addTask(t));
                     }}
                     onClose={() => setSmartDecomposeOpen(false)}
                 />

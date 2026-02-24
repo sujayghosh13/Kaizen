@@ -32,19 +32,17 @@
     transform: rotate(30deg);
 }
 
-/* Dropdown menu */
+/* Dropdown menu — position:fixed to escape header stacking context */
 .theme-picker-dropdown {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
+    position: fixed;
     width: 280px;
-    max-height: 440px;
+    max-height: 520px;
     overflow-y: auto;
     background: var(--gc-surface);
     border: 1px solid var(--gc-border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-3);
-    z-index: 500;
+    z-index: 10000;
     padding: 8px;
     animation: themeDropIn 0.2s ease-out;
 }
@@ -152,6 +150,18 @@
 
 .theme-check .material-symbols-outlined {
     font-size: 18px;
+}
+
+/* Immersive section separator */
+.theme-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gc-blue);
+    padding: 12px 8px 6px;
+    margin-top: 4px;
+    border-top: 1px solid var(--gc-border-light);
 }
 
 /* Backdrop for closing */

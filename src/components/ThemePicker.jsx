@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import React from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import './ThemePicker.css';
 
 /**
@@ -133,6 +134,97 @@ export const THEMES = [
         bg: '#fff5f8',
         accent: '#be185d',
     },
+    // ── Immersive Themes ──
+    {
+        id: 'living-sky',
+        label: '🌅 Living Sky',
+        desc: 'Time-synced gradient sky',
+        icon: 'wb_twilight',
+        bg: '#42a5f5',
+        accent: '#ffb347',
+        immersive: true,
+    },
+    {
+        id: 'zero-g',
+        label: '🚀 Zero-G',
+        desc: 'Floating in space',
+        icon: 'rocket_launch',
+        bg: '#030810',
+        accent: '#64b5f6',
+        immersive: true,
+    },
+    {
+        id: 'vaporwave',
+        label: '🌆 Vaporwave City',
+        desc: 'Neon retro dreamscape',
+        icon: 'nightlife',
+        bg: '#0a0020',
+        accent: '#ff71ce',
+        immersive: true,
+    },
+    {
+        id: 'caveman',
+        label: '🪨 Caveman',
+        desc: 'Stone age vibes',
+        icon: 'landscape',
+        bg: '#d4c4a8',
+        accent: '#b8860b',
+        immersive: true,
+    },
+    {
+        id: 'netrunner',
+        label: '⚡ Netrunner',
+        desc: 'Cyberpunk rain & glitch',
+        icon: 'terminal',
+        bg: '#080a10',
+        accent: '#00ff9f',
+        immersive: true,
+    },
+    {
+        id: 'terminal',
+        label: '💻 Terminal_01',
+        desc: 'Green monospace CLI',
+        icon: 'code',
+        bg: '#000000',
+        accent: '#00ff41',
+        immersive: true,
+    },
+    {
+        id: 'shonen',
+        label: '⚔️ Shonen Jump',
+        desc: 'Manga action panels',
+        icon: 'auto_stories',
+        bg: '#f0f0f0',
+        accent: '#ff1744',
+        immersive: true,
+    },
+    {
+        id: 'detective',
+        label: '🔍 The Detective',
+        desc: 'Noir corkboard & pins',
+        icon: 'search',
+        bg: '#d4b896',
+        accent: '#c0392b',
+        immersive: true,
+    },
+    {
+        id: 'zen-garden',
+        label: '🧘 Zen Garden',
+        desc: 'Raked sand & calm',
+        icon: 'spa',
+        bg: '#ebe4d4',
+        accent: '#5d8a68',
+        immersive: true,
+    },
+    {
+        id: '8bit',
+        label: '🎮 8-Bit Dungeon',
+        desc: 'Pixel RPG adventure',
+        icon: 'sports_esports',
+        bg: '#222034',
+        accent: '#5b6ee1',
+        immersive: true,
+    },
 ];
 
 /**
@@ -158,6 +250,20 @@ export function ThemePicker({ currentTheme, onThemeChange }) {
         setOpen(false);
     };
 
+    const [dropdownStyle, setDropdownStyle] = useState({});
+
+    // Calculate position when opening
+    useLayoutEffect(() => {
+        if (open && wrapperRef.current) {
+            const rect = wrapperRef.current.getBoundingClientRect();
+            setDropdownStyle({
+                top: `${rect.bottom + 8}px`,
+                right: `${window.innerWidth - rect.right}px`,
+                maxHeight: 'min(520px, 80vh)' // Prevent going off-screen vertically
+            });
+        }
+    }, [open]);
+
     return (
         <div className="theme-picker-wrapper" ref={wrapperRef}>
             {/* Trigger button */}
@@ -173,36 +279,43 @@ export function ThemePicker({ currentTheme, onThemeChange }) {
             {open && (
                 <>
                     <div className="theme-picker-backdrop" onClick={() => setOpen(false)} />
-                    <div className="theme-picker-dropdown">
+                    <div className="theme-picker-dropdown" style={dropdownStyle}>
                         <div className="theme-picker-title">Choose Theme</div>
-                        {THEMES.map(theme => (
-                            <button
-                                key={theme.id}
-                                className={`theme-option ${currentTheme === theme.id ? 'active' : ''}`}
-                                onClick={() => handleSelect(theme.id)}
-                            >
-                                {/* Color swatch */}
-                                <div className="theme-swatch">
-                                    <div className="theme-swatch-inner">
-                                        <div className="theme-swatch-half" style={{ background: theme.bg }} />
-                                        <div className="theme-swatch-half" style={{ background: theme.accent }} />
-                                    </div>
-                                </div>
+                        {THEMES.map((theme, idx) => {
+                            const showSep = theme.immersive && (idx === 0 || !THEMES[idx - 1].immersive);
+                            return (
+                                <React.Fragment key={theme.id}>
+                                    {showSep && (
+                                        <div className="theme-section-label">✨ Immersive</div>
+                                    )}
+                                    <button
+                                        className={`theme-option ${currentTheme === theme.id ? 'active' : ''} ${theme.immersive ? 'immersive' : ''}`}
+                                        onClick={() => handleSelect(theme.id)}
+                                    >
+                                        {/* Color swatch */}
+                                        <div className="theme-swatch">
+                                            <div className="theme-swatch-inner">
+                                                <div className="theme-swatch-half" style={{ background: theme.bg }} />
+                                                <div className="theme-swatch-half" style={{ background: theme.accent }} />
+                                            </div>
+                                        </div>
 
-                                {/* Label + description */}
-                                <div className="theme-info">
-                                    <span className="theme-label">{theme.label}</span>
-                                    <span className="theme-desc">{theme.desc}</span>
-                                </div>
+                                        {/* Label + description */}
+                                        <div className="theme-info">
+                                            <span className="theme-label">{theme.label}</span>
+                                            <span className="theme-desc">{theme.desc}</span>
+                                        </div>
 
-                                {/* Active check */}
-                                {currentTheme === theme.id && (
-                                    <div className="theme-check">
-                                        <span className="material-symbols-outlined">check</span>
-                                    </div>
-                                )}
-                            </button>
-                        ))}
+                                        {/* Active check */}
+                                        {currentTheme === theme.id && (
+                                            <div className="theme-check">
+                                                <span className="material-symbols-outlined">check</span>
+                                            </div>
+                                        )}
+                                    </button>
+                                </React.Fragment>
+                            );
+                        })}
                     </div>
                 </>
             )}
