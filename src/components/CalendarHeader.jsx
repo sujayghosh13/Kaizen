@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ThemePicker } from './ThemePicker';
 import './CalendarHeader.css';
 
@@ -12,7 +12,6 @@ const MONTHS = [
 
 /**
  * CalendarHeader — Top toolbar mimicking Google Calendar.
- * Contains: hamburger, logo, Today button, nav arrows, date label, view switcher, theme picker.
  */
 export function CalendarHeader({
     currentDate,
@@ -28,11 +27,20 @@ export function CalendarHeader({
     onThemeChange,
     onToggleAlerts
 }) {
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    // Update clock every second
+    useEffect(() => {
+        const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
     /** Cycle through views: week → month → year → week */
     const handleDateLabelClick = () => {
         const cycle = { day: 'month', week: 'month', month: 'year', year: 'week' };
         onViewChange(cycle[view] || 'month');
     };
+
     /** Format the displayed date based on the active view. */
     const dateLabel = useMemo(() => {
         const month = MONTHS[currentDate.getMonth()];
@@ -55,6 +63,16 @@ export function CalendarHeader({
         return `${startMonth} – ${endMonth} ${endOfWeek.getFullYear()}`;
     }, [currentDate, view]);
 
+    /** Format the real-time clock (HH:MM:SS AM/PM) */
+    const timeLabel = useMemo(() => {
+        return currentTime.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        });
+    }, [currentTime]);
+
     return (
         <header className="calendar-header">
             {/* Left — Hamburger + Logo */}
@@ -72,17 +90,22 @@ export function CalendarHeader({
             {/* Center — Navigation */}
             <nav className="header-nav">
                 <button className="today-btn" onClick={onToday}>Today</button>
-                <button className="nav-arrow" onClick={onPrev} title="Previous">
-                    <span className="material-symbols-outlined">chevron_left</span>
-                </button>
-                <button className="nav-arrow" onClick={onNext} title="Next">
-                    <span className="material-symbols-outlined">chevron_right</span>
-                </button>
-                <h2
-                    className="header-date"
-                    onClick={handleDateLabelClick}
-                    title="Click to change time scale"
-                >{dateLabel}</h2>
+                <div className="header-nav-arrows">
+                    <button className="nav-arrow" onClick={onPrev} title="Previous">
+                        <span className="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button className="nav-arrow" onClick={onNext} title="Next">
+                        <span className="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+                <div className="header-date-container">
+                    <h2
+                        className="header-date"
+                        onClick={handleDateLabelClick}
+                        title="Click to change time scale"
+                    >{dateLabel}</h2>
+                    <div className="header-clock">{timeLabel}</div>
+                </div>
             </nav>
 
             {/* Right — View Switcher + Theme Picker */}

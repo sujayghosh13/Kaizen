@@ -8,6 +8,7 @@
     flex-direction: column;
     overflow: hidden;
     background: var(--gc-surface);
+    position: relative;
 }
 
 /* --- All-day & Day header row --- */

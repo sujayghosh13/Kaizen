@@ -165,7 +165,7 @@ export function CalendarSidebar({
             </div>
 
             {/* Categories */}
-            <div>
+            <div className="calendar-categories">
                 <div className="sidebar-section-title">My Calendars</div>
                 <div className="category-list">
                     {CATEGORIES.map(cat => {

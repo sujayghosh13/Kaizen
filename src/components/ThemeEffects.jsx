@@ -7,7 +7,7 @@ import './ThemeEffects.css';
  */
 const EFFECT_THEMES = new Set([
     'living-sky', 'zero-g', 'vaporwave', 'netrunner',
-    'detective', 'zen-garden', '8bit'
+    'detective', 'caveman'
 ]);
 
 /**
@@ -103,13 +103,13 @@ export function ThemeEffects({ theme }) {
     // Generate star positions for Zero-G (memoized, only changes with theme)
     const stars = useMemo(() => {
         if (theme !== 'zero-g') return [];
-        return Array.from({ length: 120 }, (_, i) => ({
+        return Array.from({ length: 200 }, (_, i) => ({
             id: i,
             x: Math.random() * 100,
             y: Math.random() * 100,
-            size: 1 + Math.random() * 2,
+            size: 1 + Math.random() * 2.5,
             delay: Math.random() * 4,
-            duration: 2 + Math.random() * 3,
+            duration: 1.5 + Math.random() * 2.5,
         }));
     }, [theme]);
 
@@ -162,14 +162,11 @@ export function ThemeEffects({ theme }) {
                 <div className="te-corkboard" />
             )}
 
-            {/* Zen Garden — raked lines pattern */}
-            {theme === 'zen-garden' && (
-                <div className="te-zen-sand" />
-            )}
-
-            {/* 8-Bit — pixel grid overlay */}
-            {theme === '8bit' && (
-                <div className="te-pixel-grid" />
+            {/* Caveman — cinematic rock wall + flickering light */}
+            {theme === 'caveman' && (
+                <div className="te-caveman">
+                    <div className="te-torchlight" />
+                </div>
             )}
         </div>
     );

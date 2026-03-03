@@ -8,10 +8,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Special+Elite&family=VT323&family=Press+Start+2P&family=Orbitron:wght@400;700&family=Bangers&family=Silkscreen&display=swap');
 
 /* =============================================
+   0. GLOBAL STABILITY FIXES
+   ============================================= */
+
+/* Ensure header nav doesn't wrap or overlap */
+.header-nav {
+    display: flex !important;
+    gap: 12px !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    flex: 1 !important;
+    justify-content: center !important;
+}
+
+.header-date {
+    min-width: fit-content !important;
+    flex-shrink: 0 !important;
+    text-align: center;
+}
+
+.header-left,
+.header-right {
+    flex: 0 0 auto !important;
+}
+
+/* =============================================
    1. LIVING SKY — Glass-morphism over a living sky
    Glass panels, see-through surfaces, gentle glow
    ============================================= */
-[data-theme="living-sky"] {
+html[data-theme="living-sky"] {
     --gc-blue: #64b5f6;
     --gc-blue-hover: #42a5f5;
     --gc-blue-light: rgba(100, 181, 246, .2);
@@ -68,7 +93,7 @@
 /* =============================================
    2. ZERO-G — Deep space, floating cards, nebula
    ============================================= */
-[data-theme="zero-g"] {
+html[data-theme="zero-g"] {
     --gc-blue: #7c4dff;
     --gc-blue-hover: #b388ff;
     --gc-blue-light: rgba(124, 77, 255, .15);
@@ -130,7 +155,12 @@
     }
 }
 
-/* Glowing nebula border on sidebar */
+/* Nebula background for Zero-G (moved to ThemeEffects.css) */
+[data-theme="zero-g"] .app {
+    position: relative;
+    overflow: hidden;
+}
+
 [data-theme="zero-g"] .calendar-sidebar {
     border-right: 1px solid rgba(124, 77, 255, 0.15) !important;
     box-shadow: inset -8px 0 30px -10px rgba(124, 77, 255, 0.05);
@@ -139,7 +169,7 @@
 /* =============================================
    3. VAPORWAVE CITY — 80s Neon, CRT, chromatic
    ============================================= */
-[data-theme="vaporwave"] {
+html[data-theme="vaporwave"] {
     --gc-blue: #ff71ce;
     --gc-blue-hover: #ff9de2;
     --gc-blue-light: rgba(255, 113, 206, .18);
@@ -187,13 +217,16 @@
     box-shadow: inset 0 0 40px rgba(255, 113, 206, 0.03);
 }
 
-/* Subtle chromatic aberration on header title */
-[data-theme="vaporwave"] .header-title {
+/* Subtle chromatic aberration on header date */
+[data-theme="vaporwave"] .header-date {
     text-shadow:
         -1px 0 rgba(255, 113, 206, 0.4),
         1px 0 rgba(1, 205, 254, 0.4);
     letter-spacing: 2px;
 }
+
+/* Vaporwave Theme Background (moved to ThemeEffects.css) */
+[data-theme="vaporwave"] .app {}
 
 /* CRT scanline overlay — below UI elements */
 [data-theme="vaporwave"] .app::after {
@@ -212,34 +245,34 @@
 /* =============================================
    4. CAVEMAN — Rough stone, cave paintings
    ============================================= */
-[data-theme="caveman"] {
-    --gc-blue: #c17050;
-    --gc-blue-hover: #d48060;
-    --gc-blue-light: rgba(193, 112, 80, .18);
-    --gc-blue-bg: rgba(193, 112, 80, .22);
-    --gc-surface: #e0cdb5;
-    --gc-background: #c4a882;
-    --gc-sidebar-bg: #d8c4a8;
-    --gc-hover: #cbb89c;
-    --gc-hover-strong: #c0a888;
+html[data-theme="caveman"] {
+    --gc-blue: #ff8c42;
+    --gc-blue-hover: #ffa06d;
+    --gc-blue-light: rgba(255, 140, 66, .2);
+    --gc-blue-bg: rgba(255, 140, 66, .25);
+    --gc-surface: rgba(46, 26, 14, 0.9);
+    --gc-background: #1a0f0a;
+    --gc-sidebar-bg: rgba(26, 15, 10, 0.95);
+    --gc-hover: rgba(255, 140, 66, 0.12);
+    --gc-hover-strong: rgba(255, 140, 66, 0.2);
     --gc-border: #8a7050;
-    --gc-border-light: #a89070;
-    --gc-text-primary: #2e1a0e;
-    --gc-text-secondary: #4a3220;
-    --gc-text-tertiary: #7a6245;
-    --gc-text-on-primary: #f5efe6;
-    --cat-personal: #8b4513;
-    --cat-work: #6b8e23;
-    --cat-health: #cd5c5c;
-    --cat-learning: #daa520;
-    --cat-personal-bg: rgba(139, 69, 19, .2);
-    --cat-work-bg: rgba(107, 142, 35, .18);
-    --cat-health-bg: rgba(205, 92, 92, .18);
-    --cat-learning-bg: rgba(218, 165, 32, .18);
-    --shadow-1: 3px 3px 0 rgba(62, 44, 28, .2);
-    --shadow-2: 4px 4px 0 rgba(62, 44, 28, .22);
-    --shadow-3: 5px 5px 0 rgba(62, 44, 28, .25);
-    --shadow-fab: 4px 4px 0 rgba(62, 44, 28, .22);
+    --gc-border-light: rgba(138, 112, 80, 0.4);
+    --gc-text-primary: #f5efe6;
+    --gc-text-secondary: #d8c4a8;
+    --gc-text-tertiary: #a89070;
+    --gc-text-on-primary: #1a0f0a;
+    --cat-personal: #ff5e5e;
+    --cat-work: #52ff52;
+    --cat-health: #ff69b4;
+    --cat-learning: #ffdb58;
+    --cat-personal-bg: rgba(255, 94, 94, .2);
+    --cat-work-bg: rgba(82, 255, 82, .18);
+    --cat-health-bg: rgba(255, 105, 180, .18);
+    --cat-learning-bg: rgba(255, 219, 88, .18);
+    --shadow-1: 3px 3px 0 rgba(0, 0, 0, .4);
+    --shadow-2: 4px 4px 0 rgba(0, 0, 0, .45);
+    --shadow-3: 5px 5px 0 rgba(0, 0, 0, .5);
+    --shadow-fab: 4px 4px 0 rgba(0, 0, 0, .4);
 }
 
 /* Hand-drawn font for headers and cards only */
@@ -252,7 +285,7 @@
     font-family: 'Caveat', cursive !important;
 }
 
-[data-theme="caveman"] .header-title {
+[data-theme="caveman"] .header-date {
     font-size: 26px !important;
     font-weight: 700 !important;
 }
@@ -282,67 +315,85 @@
     border-radius: 0 !important;
 }
 
-/* Stone texture on body */
+/* Stone texture on body — handled by ThemeEffects now */
 [data-theme="caveman"] .app {
-    background:
-        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
-        #c4a882;
+    background: transparent !important;
+}
+
+/* Rough rock UI components */
+[data-theme="caveman"] .calendar-header,
+[data-theme="caveman"] .calendar-sidebar,
+[data-theme="caveman"] .month-day-cell,
+[data-theme="caveman"] .task-chip {
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E") !important;
+    border: 2px solid var(--gc-border) !important;
+    box-shadow:
+        1px 1px 0 rgba(255, 255, 255, 0.1),
+        inset 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-theme="caveman"] .task-chip {
+    padding: 6px 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* =============================================
    5. NETRUNNER — Cyberpunk rain, glitch, neon green
    ============================================= */
-[data-theme="netrunner"] {
-    --gc-blue: #00ff9f;
-    --gc-blue-hover: #33ffb2;
-    --gc-blue-light: rgba(0, 255, 159, .14);
-    --gc-blue-bg: rgba(0, 255, 159, .2);
-    --gc-surface: rgba(10, 12, 18, 0.94);
-    --gc-background: #060810;
-    --gc-sidebar-bg: rgba(10, 14, 20, 0.92);
-    --gc-hover: rgba(0, 255, 159, 0.06);
-    --gc-hover-strong: rgba(0, 255, 159, 0.12);
-    --gc-border: rgba(0, 255, 159, 0.2);
-    --gc-border-light: rgba(0, 255, 159, 0.08);
-    --gc-text-primary: #c0ffe0;
-    --gc-text-secondary: #00ff9f;
-    --gc-text-tertiary: #1a6b3a;
-    --gc-text-on-primary: #060810;
-    --cat-personal: #ff3366;
-    --cat-work: #00ff9f;
-    --cat-health: #00ccff;
+html[data-theme="netrunner"] {
+    --gc-blue: #00f3ff;
+    --gc-blue-hover: #33f7ff;
+    --gc-blue-light: rgba(0, 243, 255, .14);
+    --gc-blue-bg: rgba(0, 243, 255, .2);
+    --gc-surface: rgba(8, 10, 18, 0.94);
+    --gc-background: #04060c;
+    --gc-sidebar-bg: rgba(8, 12, 20, 0.92);
+    --gc-hover: rgba(0, 243, 255, 0.06);
+    --gc-hover-strong: rgba(0, 243, 255, 0.12);
+    --gc-border: rgba(0, 243, 255, 0.2);
+    --gc-border-light: rgba(0, 243, 255, 0.08);
+    --gc-text-primary: #e0f8ff;
+    --gc-text-secondary: #00f3ff;
+    --gc-text-tertiary: #1a4d6b;
+    --gc-text-on-primary: #04060c;
+    --cat-personal: #ff2a6d;
+    --cat-work: #00f3ff;
+    --cat-health: #05ffa1;
     --cat-learning: #ffcc00;
-    --cat-personal-bg: rgba(255, 51, 102, .14);
-    --cat-work-bg: rgba(0, 255, 159, .1);
-    --cat-health-bg: rgba(0, 204, 255, .1);
+    --cat-personal-bg: rgba(255, 42, 109, .14);
+    --cat-work-bg: rgba(0, 243, 255, .1);
+    --cat-health-bg: rgba(5, 255, 161, .1);
     --cat-learning-bg: rgba(255, 204, 0, .1);
-    --shadow-1: 0 0 10px rgba(0, 255, 159, .18);
-    --shadow-2: 0 0 18px rgba(0, 255, 159, .2);
-    --shadow-3: 0 0 28px rgba(0, 255, 159, .25);
-    --shadow-fab: 0 0 14px rgba(0, 255, 159, .22);
+    --shadow-1: 0 0 10px rgba(0, 243, 255, .18);
+    --shadow-2: 0 0 18px rgba(0, 243, 255, .2);
+    --shadow-3: 0 0 28px rgba(0, 243, 255, .25);
+    --shadow-fab: 0 0 14px rgba(0, 243, 255, .22);
 }
 
 /* Orbitron tech font for UI chrome */
-[data-theme="netrunner"] .calendar-header,
-[data-theme="netrunner"] .calendar-header *,
+[data-theme="netrunner"] .header-date,
+[data-theme="netrunner"] .today-btn,
 [data-theme="netrunner"] .calendar-sidebar .mini-cal-title,
 [data-theme="netrunner"] .create-task-btn,
 [data-theme="netrunner"] .view-switcher button {
     font-family: 'Orbitron', sans-serif !important;
 }
 
-/* Neon green border glow on cards */
+/* Neon cyan border glow on cards */
 [data-theme="netrunner"] .task-chip {
-    border: 1px solid rgba(0, 255, 159, 0.3) !important;
-    box-shadow: 0 0 6px rgba(0, 255, 159, 0.12), inset 0 0 6px rgba(0, 255, 159, 0.03) !important;
+    border: 1px solid rgba(0, 243, 255, 0.3) !important;
+    box-shadow: 0 0 6px rgba(0, 243, 255, 0.12), inset 0 0 6px rgba(0, 243, 255, 0.03) !important;
     border-radius: 2px !important;
-    text-shadow: 0 0 2px rgba(0, 255, 159, 0.12);
+    text-shadow: 0 0 2px rgba(0, 243, 255, 0.12);
 }
 
 /* UI flicker animation */
 [data-theme="netrunner"] .calendar-header {
     animation: nr-flicker 10s infinite;
-    border-bottom: 1px solid rgba(0, 255, 159, 0.2) !important;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.2) !important;
 }
 
 @keyframes nr-flicker {
@@ -409,37 +460,37 @@
 
 /* Sidebar glowing separator */
 [data-theme="netrunner"] .calendar-sidebar {
-    border-right: 1px solid rgba(0, 255, 159, 0.15) !important;
-    box-shadow: inset -5px 0 20px -8px rgba(0, 255, 159, 0.04);
+    border-right: 1px solid rgba(0, 243, 255, 0.15) !important;
+    box-shadow: inset -5px 0 20px -8px rgba(0, 243, 255, 0.04);
 }
 
 /* =============================================
    6. TERMINAL_01 — Coding Terminal, green phosphor
    ============================================= */
-[data-theme="terminal"] {
+html[data-theme="terminal"] {
     --gc-blue: #00ff41;
-    --gc-blue-hover: #33ff66;
-    --gc-blue-light: rgba(0, 255, 65, .12);
-    --gc-blue-bg: rgba(0, 255, 65, .18);
+    --gc-blue-hover: #00ff66;
+    --gc-blue-light: rgba(0, 255, 65, .1);
+    --gc-blue-bg: rgba(0, 255, 65, .15);
     --gc-surface: #0a0a0a;
     --gc-background: #000000;
     --gc-sidebar-bg: #050505;
     --gc-hover: #0a1a0a;
-    --gc-hover-strong: #102010;
-    --gc-border: #0a3a0a;
-    --gc-border-light: #082808;
+    --gc-hover-strong: #102510;
+    --gc-border: #008800;
+    --gc-border-light: #004400;
     --gc-text-primary: #00ff41;
-    --gc-text-secondary: #00cc33;
-    --gc-text-tertiary: #005518;
+    --gc-text-secondary: #00ff66;
+    --gc-text-tertiary: #00cc33;
     --gc-text-on-primary: #000000;
-    --cat-personal: #ffcc00;
+    --cat-personal: #ffd700;
     --cat-work: #00ff41;
-    --cat-health: #00ccff;
-    --cat-learning: #ff6600;
-    --cat-personal-bg: rgba(255, 204, 0, .1);
+    --cat-health: #00e5ff;
+    --cat-learning: #ff9100;
+    --cat-personal-bg: rgba(255, 215, 0, .1);
     --cat-work-bg: rgba(0, 255, 65, .08);
-    --cat-health-bg: rgba(0, 204, 255, .08);
-    --cat-learning-bg: rgba(255, 102, 0, .08);
+    --cat-health-bg: rgba(0, 229, 255, .08);
+    --cat-learning-bg: rgba(255, 145, 0, .08);
     --shadow-1: 0 0 8px rgba(0, 255, 65, .08);
     --shadow-2: 0 0 14px rgba(0, 255, 65, .1);
     --shadow-3: 0 0 22px rgba(0, 255, 65, .12);
@@ -447,7 +498,7 @@
 }
 
 /* VT323 monospace for UI elements */
-[data-theme="terminal"] .header-title,
+[data-theme="terminal"] .header-date,
 [data-theme="terminal"] .task-chip,
 [data-theme="terminal"] .calendar-sidebar,
 [data-theme="terminal"] .create-task-btn,
@@ -457,7 +508,7 @@
     letter-spacing: 0.8px;
 }
 
-[data-theme="terminal"] .header-title {
+[data-theme="terminal"] .header-date {
     font-size: 22px !important;
 }
 
@@ -474,8 +525,8 @@
     letter-spacing: 1px !important;
 }
 
-/* Blinking cursor effect on header title */
-[data-theme="terminal"] .header-title::after {
+/* Blinking cursor effect on header date */
+[data-theme="terminal"] .header-date::after {
     content: '█';
     animation: term-blink 1s step-end infinite;
     margin-left: 4px;
@@ -531,7 +582,7 @@
 /* =============================================
    7. SHONEN JUMP — Manga action B&W
    ============================================= */
-[data-theme="shonen"] {
+html[data-theme="shonen"] {
     --gc-blue: #ff1744;
     --gc-blue-hover: #ff5252;
     --gc-blue-light: rgba(255, 23, 68, .15);
@@ -562,7 +613,7 @@
 }
 
 /* Bangers font for headings — manga style */
-[data-theme="shonen"] .header-title,
+[data-theme="shonen"] .header-date,
 [data-theme="shonen"] .task-chip,
 [data-theme="shonen"] .create-task-btn,
 [data-theme="shonen"] .mini-cal-title,
@@ -574,13 +625,14 @@
     text-transform: uppercase;
 }
 
-[data-theme="shonen"] .header-title {
-    font-size: 22px !important;
+[data-theme="shonen"] .header-date {
+    font-size: 17px !important;
+    line-height: 1 !important;
 }
 
 /* Bold manga-style borders — THICK ink */
 [data-theme="shonen"] .task-chip {
-    border: 3px solid #111 !important;
+    border: 2px solid #111 !important;
     border-radius: 0 !important;
     font-weight: 900;
     box-shadow: 3px 3px 0 #111 !important;
@@ -636,38 +688,39 @@
 /* =============================================
    8. THE DETECTIVE — Noir, corkboard, typewriter
    ============================================= */
-[data-theme="detective"] {
-    --gc-blue: #cc2222;
-    --gc-blue-hover: #ee3333;
-    --gc-blue-light: rgba(204, 34, 34, .12);
-    --gc-blue-bg: rgba(204, 34, 34, .18);
-    --gc-surface: #f0e4d0;
-    --gc-background: #c8a870;
-    --gc-sidebar-bg: #e4d4b8;
-    --gc-hover: #d8c8a8;
-    --gc-hover-strong: #ccb898;
-    --gc-border: #907050;
-    --gc-border-light: #b09878;
-    --gc-text-primary: #1a0e08;
-    --gc-text-secondary: #3a2818;
-    --gc-text-tertiary: #6a5438;
-    --gc-text-on-primary: #f0e4d0;
-    --cat-personal: #8b2252;
-    --cat-work: #cc2222;
-    --cat-health: #1a6b3a;
-    --cat-learning: #cc8800;
-    --cat-personal-bg: rgba(139, 34, 82, .15);
-    --cat-work-bg: rgba(204, 34, 34, .12);
-    --cat-health-bg: rgba(26, 107, 58, .12);
-    --cat-learning-bg: rgba(204, 136, 0, .12);
-    --shadow-1: 2px 3px 8px rgba(44, 24, 16, .35);
-    --shadow-2: 3px 5px 14px rgba(44, 24, 16, .35);
-    --shadow-3: 5px 7px 22px rgba(44, 24, 16, .4);
-    --shadow-fab: 3px 5px 14px rgba(44, 24, 16, .35);
+/* Noir Grayscale Style */
+html[data-theme="detective"] {
+    --gc-blue: #cc0000;
+    --gc-blue-hover: #ff0000;
+    --gc-blue-light: rgba(204, 0, 0, .1);
+    --gc-blue-bg: rgba(204, 0, 0, .15);
+    --gc-surface: #222222;
+    --gc-background: #111111;
+    --gc-sidebar-bg: #1a1a1a;
+    --gc-hover: #2a2a2a;
+    --gc-hover-strong: #333333;
+    --gc-border: #444444;
+    --gc-border-light: #2a2a2a;
+    --gc-text-primary: #f0f0f0;
+    --gc-text-secondary: #cccccc;
+    --gc-text-tertiary: #888888;
+    --gc-text-on-primary: #f0f0f0;
+    --cat-personal: #aa0000;
+    --cat-work: #ffffff;
+    --cat-health: #666666;
+    --cat-learning: #999999;
+    --cat-personal-bg: rgba(170, 0, 0, .12);
+    --cat-work-bg: rgba(255, 255, 255, .08);
+    --cat-health-bg: rgba(102, 102, 102, .08);
+    --cat-learning-bg: rgba(153, 153, 153, .08);
+    --shadow-1: 0 4px 12px rgba(0, 0, 0, .5);
+    --shadow-2: 0 8px 24px rgba(0, 0, 0, .6);
+    --shadow-3: 0 12px 48px rgba(0, 0, 0, .7);
+    --shadow-fab: 0 8px 24px rgba(0, 0, 0, .6);
 }
 
 /* Special Elite typewriter font for UI */
-[data-theme="detective"] .header-title,
+[data-theme="detective"] .header-date,
 [data-theme="detective"] .task-chip,
 [data-theme="detective"] .create-task-btn,
 [data-theme="detective"] .mini-cal-title,
@@ -676,7 +729,7 @@
     font-family: 'Special Elite', cursive !important;
 }
 
-[data-theme="detective"] .header-title {
+[data-theme="detective"] .header-date {
     font-size: 20px !important;
     letter-spacing: 1px;
 }
@@ -721,198 +774,56 @@
     border-right: 2px solid #907050 !important;
 }
 
-/* =============================================
-   9. ZEN GARDEN — Calm nature, smooth stones
-   ============================================= */
-[data-theme="zen-garden"] {
-    --gc-blue: #4a8c5e;
-    --gc-blue-hover: #3a7a4e;
-    --gc-blue-light: rgba(74, 140, 94, .12);
-    --gc-blue-bg: rgba(74, 140, 94, .18);
-    --gc-surface: #f8f4ec;
-    --gc-background: #efe8d8;
-    --gc-sidebar-bg: #f4eee4;
-    --gc-hover: #e8e0cc;
-    --gc-hover-strong: #dcd2b8;
-    --gc-border: #c8b898;
-    --gc-border-light: #d8cca8;
-    --gc-text-primary: #2a2618;
-    --gc-text-secondary: #4a4430;
-    --gc-text-tertiary: #8a8060;
-    --gc-text-on-primary: #f8f4ec;
-    --cat-personal: #7b5ea7;
-    --cat-work: #4a8c5e;
-    --cat-health: #b86848;
-    --cat-learning: #a08810;
-    --cat-personal-bg: rgba(123, 94, 167, .12);
-    --cat-work-bg: rgba(74, 140, 94, .12);
-    --cat-health-bg: rgba(184, 104, 72, .12);
-    --cat-learning-bg: rgba(160, 136, 16, .12);
-    --shadow-1: 0 1px 4px rgba(42, 38, 24, .08);
-    --shadow-2: 0 2px 8px rgba(42, 38, 24, .1);
-    --shadow-3: 0 4px 16px rgba(42, 38, 24, .12);
-    --shadow-fab: 0 2px 8px rgba(42, 38, 24, .1);
+/* Detective — Light text for dark sidebar backgrounds (unused now that we use panels, but kept for safety) */
+[data-theme="detective"] .sidebar-section-title {
+    color: #2e1a0e !important;
 }
 
-/* Smooth stone-like task chips */
-[data-theme="zen-garden"] .task-chip {
-    border-radius: 24px !important;
-    border: none !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .06), inset 0 1px 0 rgba(255, 255, 255, .5) !important;
-    padding-left: 14px !important;
-    padding-right: 14px !important;
+/* Detective — Dark text visibility on paper surfaces (header & inside sidebar panels) */
+[data-theme="detective"] .header-logo-text,
+[data-theme="detective"] .header-date,
+[data-theme="detective"] .today-btn,
+[data-theme="detective"] .nav-arrow,
+[data-theme="detective"] .view-btn,
+[data-theme="detective"] .alert-toggle-btn,
+[data-theme="detective"] .hamburger-btn,
+[data-theme="detective"] .theme-picker-btn,
+[data-theme="detective"] .create-task-btn,
+[data-theme="detective"] .mini-calendar *,
+[data-theme="detective"] .calendar-categories *,
+[data-theme="detective"] .category-item,
+[data-theme="detective"] .category-count,
+[data-theme="detective"] .category-label {
+    color: #2e1a0e !important;
 }
 
-/* Raked sand lines on grid */
-[data-theme="zen-garden"] .calendar-grid-wrapper,
-[data-theme="zen-garden"] .month-view,
-[data-theme="zen-garden"] .year-view {
-    background-image:
-        repeating-linear-gradient(0deg,
-            transparent, transparent 20px,
-            rgba(180, 160, 120, 0.06) 20px,
-            rgba(180, 160, 120, 0.06) 22px);
+/* Ensure Material Symbols in header/sidebar are visible */
+[data-theme="detective"] .material-symbols-outlined {
+    color: inherit;
 }
 
-/* Calm, slower transitions for everything */
-[data-theme="zen-garden"] * {
-    transition-duration: 0.5s !important;
-    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+[data-theme="detective"] .header-logo-icon {
+    background: #cc0000 !important;
+    color: #f0f0f0 !important;
 }
 
-/* Soft natural borders */
-[data-theme="zen-garden"] .calendar-header {
-    border-bottom: 1px solid rgba(180, 160, 120, 0.3) !important;
+[data-theme="detective"] .create-task-btn .material-symbols-outlined {
+    color: #cc0000 !important;
 }
 
-[data-theme="zen-garden"] .calendar-sidebar {
-    border-right: 1px solid rgba(180, 160, 120, 0.3) !important;
+[data-theme="detective"] .view-btn.active {
+    background: rgba(204, 0, 0, 0.1) !important;
+    color: #cc0000 !important;
 }
 
-/* Circular rake pattern in background */
-[data-theme="zen-garden"] .calendar-grid-wrapper::after,
-[data-theme="zen-garden"] .month-view::after {
-    content: '';
-    position: absolute;
-    bottom: 10%;
-    right: 5%;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    border: 1px solid rgba(160, 140, 100, 0.08);
-    box-shadow:
-        0 0 0 20px transparent,
-        0 0 0 21px rgba(160, 140, 100, 0.05),
-        0 0 0 42px transparent,
-        0 0 0 43px rgba(160, 140, 100, 0.03);
-    pointer-events: none;
+[data-theme="detective"] .mini-cal-day.today {
+    background: #cc0000 !important;
+    color: #ffffff !important;
 }
 
-/* =============================================
-   10. 8-BIT DUNGEON — RPG Pixel Art
-   ============================================= */
-[data-theme="8bit"] {
-    --gc-blue: #5b6ee1;
-    --gc-blue-hover: #7382e8;
-    --gc-blue-light: rgba(91, 110, 225, .18);
-    --gc-blue-bg: rgba(91, 110, 225, .22);
-    --gc-surface: #222034;
-    --gc-background: #14102a;
-    --gc-sidebar-bg: #1c1832;
-    --gc-hover: #2e2a48;
-    --gc-hover-strong: #3a3558;
-    --gc-border: #443e65;
-    --gc-border-light: #302c4a;
-    --gc-text-primary: #cbdbfc;
-    --gc-text-secondary: #8b9bb4;
-    --gc-text-tertiary: #524f72;
-    --gc-text-on-primary: #222034;
-    --cat-personal: #d77bba;
-    --cat-work: #5b6ee1;
-    --cat-health: #6abe30;
-    --cat-learning: #fbf236;
-    --cat-personal-bg: rgba(215, 123, 186, .18);
-    --cat-work-bg: rgba(91, 110, 225, .15);
-    --cat-health-bg: rgba(106, 190, 48, .15);
-    --cat-learning-bg: rgba(251, 242, 54, .15);
-    --shadow-1: 3px 3px 0 rgba(0, 0, 0, .6);
-    --shadow-2: 4px 4px 0 rgba(0, 0, 0, .6);
-    --shadow-3: 5px 5px 0 rgba(0, 0, 0, .7);
-    --shadow-fab: 4px 4px 0 rgba(0, 0, 0, .6);
-}
-
-/* Press Start 2P pixel font for retro UI */
-[data-theme="8bit"] .header-title,
-[data-theme="8bit"] .task-chip,
-[data-theme="8bit"] .create-task-btn,
-[data-theme="8bit"] .smart-decompose-trigger,
-[data-theme="8bit"] .view-switcher button,
-[data-theme="8bit"] .mini-cal-title,
-[data-theme="8bit"] .task-modal-header {
-    font-family: 'Press Start 2P', monospace !important;
-}
-
-/* Adjusted sizes for pixel perfection */
-[data-theme="8bit"] .header-title {
-    font-size: 14px !important;
-    letter-spacing: 1px;
-}
-
-[data-theme="8bit"] .task-chip {
-    font-size: 10px !important;
-    line-height: 1.6 !important;
-    padding: 8px 10px !important;
-}
-
-[data-theme="8bit"] .create-task-btn,
-[data-theme="8bit"] .smart-decompose-trigger,
-[data-theme="8bit"] .view-switcher button {
-    font-size: 11px !important;
-}
-
-[data-theme="8bit"] .mini-cal-title {
-    font-size: 10px !important;
-}
-
-/* Pixel-perfect: no border-radius anywhere */
-[data-theme="8bit"] *,
-[data-theme="8bit"] *::before,
-[data-theme="8bit"] *::after {
-    border-radius: 0 !important;
-}
-
-/* Pixel border on task chips — thick retro style */
-[data-theme="8bit"] .task-chip {
-    border: 3px solid var(--gc-border) !important;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, .6) !important;
-}
-
-/* Pixelated rendering */
-[data-theme="8bit"] .app {
-    image-rendering: pixelated;
-}
-
-/* Thick retro borders */
-[data-theme="8bit"] .calendar-header {
-    border-bottom: 3px solid var(--gc-border) !important;
-}
-
-[data-theme="8bit"] .calendar-sidebar {
-    border-right: 3px solid var(--gc-border) !important;
-}
-
-/* HP bar style accent for header */
-[data-theme="8bit"] .calendar-header::after {
-    content: '♥ HP ████████';
-    position: absolute;
-    right: 140px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Press Start 2P', monospace !important;
-    font-size: 8px;
-    color: #6abe30;
-    opacity: 0.4;
-    pointer-events: none;
+[data-theme="detective"] .mini-cal-day.selected {
+    background: rgba(204, 0, 0, 0.15) !important;
+    color: #cc0000 !important;
 }
 
 /* =============================================
@@ -982,15 +893,15 @@
 /* Netrunner — Glowing cyberpunk buttons */
 [data-theme="netrunner"] .create-task-btn,
 [data-theme="netrunner"] .smart-decompose-trigger {
-    background: rgba(0, 255, 159, 0.08) !important;
-    border: 1px solid rgba(0, 255, 159, 0.4) !important;
-    box-shadow: 0 0 10px rgba(0, 255, 159, 0.2), inset 0 0 10px rgba(0, 255, 159, 0.03) !important;
+    background: rgba(0, 243, 255, 0.08) !important;
+    border: 1px solid rgba(0, 243, 255, 0.4) !important;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.03) !important;
     border-radius: 2px !important;
 }
 
 [data-theme="netrunner"] .create-task-btn:hover,
 [data-theme="netrunner"] .smart-decompose-trigger:hover {
-    box-shadow: 0 0 16px rgba(0, 255, 159, 0.35), inset 0 0 12px rgba(0, 255, 159, 0.08) !important;
+    box-shadow: 0 0 16px rgba(0, 243, 255, 0.35), inset 0 0 12px rgba(0, 243, 255, 0.08) !important;
     animation: nr-glitch 0.2s ease;
 }
 
@@ -1041,37 +952,6 @@
     box-shadow: 3px 3px 8px rgba(0, 0, 0, .25) !important;
 }
 
-/* Zen Garden — Smooth rounded buttons */
-[data-theme="zen-garden"] .create-task-btn,
-[data-theme="zen-garden"] .smart-decompose-trigger {
-    background: rgba(74, 140, 94, 0.12) !important;
-    border: 1px solid rgba(74, 140, 94, 0.2) !important;
-    border-radius: 20px !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .05) !important;
-}
-
-[data-theme="zen-garden"] .create-task-btn:hover,
-[data-theme="zen-garden"] .smart-decompose-trigger:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .08) !important;
-}
-
-/* 8-Bit — Pixel perfect chunky buttons */
-[data-theme="8bit"] .create-task-btn,
-[data-theme="8bit"] .smart-decompose-trigger {
-    background: #443e65 !important;
-    border: 3px solid #302c4a !important;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, .6) !important;
-    border-radius: 0 !important;
-    font-family: 'Press Start 2P', monospace !important;
-    font-size: 10px !important;
-}
-
-[data-theme="8bit"] .create-task-btn:hover,
-[data-theme="8bit"] .smart-decompose-trigger:hover {
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, .7) !important;
-    transform: translate(-1px, -1px);
-}
-
 /* =============================================
    ENHANCED PANEL & CARD STYLING
    ============================================= */
@@ -1083,7 +963,7 @@
     -webkit-backdrop-filter: blur(10px) !important;
     background: rgba(255, 255, 255, 0.3) !important;
     border-radius: 12px !important;
-    padding: 14px !important;
+    padding: 10px !important;
 }
 
 /* Vaporwave — Neon-outlined panels */
@@ -1097,9 +977,15 @@
 /* Caveman — Stone texture panels */
 [data-theme="caveman"] .mini-calendar,
 [data-theme="caveman"] .calendar-categories {
-    background: #cbb89c !important;
+    background: rgba(46, 26, 14, 0.95) !important;
     border: 2px solid #8a7050 !important;
     border-radius: 0 !important;
+    color: var(--gc-text-primary) !important;
+}
+
+[data-theme="caveman"] .category-name {
+    color: var(--gc-text-primary) !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Netrunner — Green glowing panels */
@@ -1126,18 +1012,10 @@
     box-shadow: 2px 3px 8px rgba(0, 0, 0, .08) !important;
 }
 
-/* Zen Garden — Soft natural panels */
-[data-theme="zen-garden"] .mini-calendar,
-[data-theme="zen-garden"] .calendar-categories {
-    background: rgba(248, 244, 236, 0.8) !important;
-    border: 1px solid rgba(180, 160, 120, 0.2) !important;
-    border-radius: 8px !important;
-}
-
-/* 8-Bit — Chunky pixel panels */
-[data-theme="8bit"] .mini-calendar,
-[data-theme="8bit"] .calendar-categories {
-    background: #222034 !important;
-    border: 3px solid #443e65 !important;
-    border-radius: 0 !important;
+/* Final line of defense for icons - highest specificity */
+html[data-theme] .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined' !important;
+    font-size: 24px !important;
+    display: inline-block !important;
+    line-height: 1 !important;
 }
