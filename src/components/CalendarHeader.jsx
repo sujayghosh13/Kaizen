@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { ThemePicker } from './ThemePicker';
+import kaizenIcon from '../assets/kaizen-icon.svg';
 import './CalendarHeader.css';
 
 /**
@@ -82,7 +83,7 @@ export function CalendarHeader({
                     <span className="material-symbols-outlined">menu</span>
                 </button>
                 <div className="header-logo">
-                    <div className="header-logo-icon">K</div>
+                    <img src={kaizenIcon} alt="Kaizen" className="header-logo-icon" />
                     <span className="header-logo-text">Kaizen</span>
                 </div>
             </div>

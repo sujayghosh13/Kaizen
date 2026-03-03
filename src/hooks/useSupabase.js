@@ -10,21 +10,33 @@ export function useAuth() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Get initial session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setUser(session?.user ?? null);
-            setLoading(false);
-        });
-
-        // Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            (_event, session) => {
+        // Get initial session (offline-safe)
+        supabase.auth.getSession()
+            .then(({ data: { session } }) => {
                 setUser(session?.user ?? null);
                 setLoading(false);
-            }
-        );
+            })
+            .catch(() => {
+                // Offline — continue without auth
+                setUser(null);
+                setLoading(false);
+            });
 
-        return () => subscription.unsubscribe();
+        // Listen for auth changes
+        let subscription;
+        try {
+            const result = supabase.auth.onAuthStateChange(
+                (_event, session) => {
+                    setUser(session?.user ?? null);
+                    setLoading(false);
+                }
+            );
+            subscription = result.data.subscription;
+        } catch {
+            // Offline — no listener needed
+        }
+
+        return () => subscription?.unsubscribe();
     }, []);
 
     const signUp = useCallback(async (email, password) => {
@@ -77,19 +89,26 @@ export function useTasks(user) {
             return;
         }
 
-        // Load from Supabase
+        // Load from Supabase (with offline fallback)
         (async () => {
-            const { data, error } = await supabase
-                .from('tasks')
-                .select('*')
-                .order('date', { ascending: true });
+            try {
+                const { data, error } = await supabase
+                    .from('tasks')
+                    .select('*')
+                    .order('date', { ascending: true });
 
-            if (error) {
-                console.error('Failed to load tasks:', error);
-                setTasks([]);
-            } else {
-                // Map DB columns to app format
-                setTasks(data.map(dbToTask));
+                if (error) {
+                    console.error('Failed to load tasks:', error);
+                    // Fallback to localStorage
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    setTasks(raw ? JSON.parse(raw) : []);
+                } else {
+                    setTasks(data.map(dbToTask));
+                }
+            } catch {
+                // Network error — use localStorage
+                const raw = localStorage.getItem(STORAGE_KEY);
+                setTasks(raw ? JSON.parse(raw) : []);
             }
             setLoading(false);
         })();
@@ -190,27 +209,30 @@ export function usePreferences(user) {
         return saved === null ? true : saved === 'true';
     });
 
-    // Load preferences from Supabase
+    // Load preferences from Supabase (offline-safe)
     useEffect(() => {
         if (!user) return;
 
         (async () => {
-            const { data, error } = await supabase
-                .from('user_preferences')
-                .select('*')
-                .eq('user_id', user.id)
-                .single();
+            try {
+                const { data, error } = await supabase
+                    .from('user_preferences')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .single();
 
-            if (!error && data) {
-                setTheme(data.theme);
-                setAlertsEnabled(data.alerts_enabled);
-            } else if (error && error.code === 'PGRST116') {
-                // No preferences row yet — create one
-                await supabase.from('user_preferences').insert({
-                    user_id: user.id,
-                    theme,
-                    alerts_enabled: alertsEnabled,
-                });
+                if (!error && data) {
+                    setTheme(data.theme);
+                    setAlertsEnabled(data.alerts_enabled);
+                } else if (error && error.code === 'PGRST116') {
+                    await supabase.from('user_preferences').insert({
+                        user_id: user.id,
+                        theme,
+                        alerts_enabled: alertsEnabled,
+                    }).catch(() => { });
+                }
+            } catch {
+                // Offline — use local preferences
             }
         })();
     }, [user]);

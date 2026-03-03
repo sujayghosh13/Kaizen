@@ -124,7 +124,7 @@ export function useTaskAlerts(tasks, enabled) {
 
                 new Notification(`${emoji} ${task.title}`, {
                     body: `${countdownStr} — ${formatAlertTime(task.date, task.startTime)}\nCategory: ${task.category}`,
-                    icon: '/kaizen-icon.png',
+                    icon: '/favicon.svg',
                     tag: `kaizen-${task.id}`,
                     requireInteraction: false,
                 });
