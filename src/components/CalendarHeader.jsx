@@ -121,6 +121,16 @@ export function CalendarHeader({
                     <button className={`view-btn ${view === 'year' ? 'active' : ''}`}
                         onClick={() => onViewChange('year')}>Year</button>
                 </div>
+                <select
+                    className="mobile-view-select"
+                    value={view}
+                    onChange={(e) => onViewChange(e.target.value)}
+                >
+                    <option value="day">Day</option>
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                    <option value="year">Year</option>
+                </select>
 
                 {/* Alert Toggle */}
                 <button

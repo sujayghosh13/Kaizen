@@ -1,8 +1,32 @@
 # 🎌 Kaizen: The Immersive Calendar
 
-![Kaizen Banner](public/banner.png)
+<p align="center">
+  <a href="https://kaizen-sujayghosh13s-projects.vercel.app" target="_blank">
+    <img src="public/banner.png" alt="Kaizen Calendar Banner" width="100%" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://kaizen-sujayghosh13s-projects.vercel.app" target="_blank"><strong>🚀 Live Website Demo: https://kaizen-sujayghosh13s-projects.vercel.app</strong></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Live%20Demo-brightgreen?style=for-the-badge" alt="Status" />
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Supabase-Realtime-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/PWA-Installable-FFA000?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+</p>
 
 A high-performance, aesthetically-driven calendar application designed for focus and productivity. Built with **React** and **Vite**, Kaizen blends modern design with advanced features like AI-powered task decomposition and Supabase synchronization.
+
+> 🌐 **Live Website Application:** [https://kaizen-sujayghosh13s-projects.vercel.app](https://kaizen-sujayghosh13s-projects.vercel.app)
+
+## 📸 Interface Preview
+
+| Week View (Tokyo Night Theme) | Month View (Multi-Category Schedule) |
+| :---: | :---: |
+| <a href="https://kaizen-sujayghosh13s-projects.vercel.app" target="_blank"><img src="public/screenshot-week.png" alt="Kaizen Week View - Real Screenshot" width="100%" /></a> | <a href="https://kaizen-sujayghosh13s-projects.vercel.app" target="_blank"><img src="public/screenshot-month.png" alt="Kaizen Month View - Real Screenshot" width="100%" /></a> |
 
 ## ✨ Features
 

@@ -12,6 +12,7 @@ import { useAuth, useTasks, usePreferences } from './hooks/useSupabase';
 import { useTaskAlerts } from './hooks/useTaskAlerts';
 import './themes-immersive.css';
 import './App.css';
+import './mobile.css';
 
 /**
  * Generate a unique task ID.
@@ -164,6 +165,19 @@ function App() {
     const [defaultCategory, setDefaultCategory] = useState(null);
     const [smartDecomposeOpen, setSmartDecomposeOpen] = useState(false);
     const [activeCategories, setActiveCategories] = useState(new Set(['personal', 'work', 'health', 'learning']));
+
+    // Mobile detection
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 768px)');
+        const handler = (e) => {
+            setIsMobile(e.matches);
+            if (e.matches) setSidebarOpen(false);
+        };
+        mql.addEventListener('change', handler);
+        if (mql.matches) setSidebarOpen(false);
+        return () => mql.removeEventListener('change', handler);
+    }, []);
 
     // Show auth modal on first visit if not signed in and not dismissed
     useEffect(() => {
@@ -408,20 +422,47 @@ function App() {
 
             {/* Body: Sidebar + Active View */}
             <div className="app-body">
+                {/* Mobile sidebar backdrop */}
+                {isMobile && (
+                    <div
+                        className={`sidebar-backdrop ${!sidebarOpen ? 'hidden' : ''}`}
+                        onClick={() => setSidebarOpen(false)}
+                    />
+                )}
+
                 <CalendarSidebar
                     currentDate={currentDate}
                     sidebarOpen={sidebarOpen}
                     tasks={tasks}
                     activeCategories={activeCategories}
-                    onDateSelect={handleDateSelect}
-                    onCreateTask={handleCreateTask}
-                    onSmartDecompose={() => setSmartDecomposeOpen(true)}
+                    onDateSelect={(date) => {
+                        handleDateSelect(date);
+                        if (isMobile) setSidebarOpen(false);
+                    }}
+                    onCreateTask={() => {
+                        handleCreateTask();
+                        if (isMobile) setSidebarOpen(false);
+                    }}
+                    onSmartDecompose={() => {
+                        setSmartDecomposeOpen(true);
+                        if (isMobile) setSidebarOpen(false);
+                    }}
                     onToggleCategory={handleToggleCategory}
-                    onCreateFromCategory={handleCreateFromCategory}
+                    onCreateFromCategory={(catId) => {
+                        handleCreateFromCategory(catId);
+                        if (isMobile) setSidebarOpen(false);
+                    }}
                     onDeleteCategoryTasks={handleDeleteCategoryTasks}
                 />
 
                 {renderView()}
+
+                {/* Mobile FAB */}
+                {isMobile && (
+                    <button className="mobile-fab" onClick={handleCreateTask}>
+                        <span className="material-symbols-outlined">add</span>
+                    </button>
+                )}
             </div>
 
             {/* Task Modal */}
